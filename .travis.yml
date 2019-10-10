@@ -1,12 +1,12 @@
 language: go
 before_install: 
 - download_url=$(curl -s https://api.github.com/repos/go-swagger/go-swagger/releases/latest | jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
-- curl -o /usr/local/bin/swagger -L'#' $download_url
-- chmod +x /usr/local/bin/swagger
+- curl -o swagger -L'#' $download_url
+- chmod +x swagger
 script:
 - wget https://raw.githubusercontent.com/gyselroth/balloon/master/src/app/Balloon.App.Api/swagger.yml -O swagger.yml
 - wget https://raw.githubusercontent.com/gyselroth/balloon/master/src/app/Balloon.App.Api/openapi.yml -O openapi.yml
-- swagger generate client -f swagger.yml
+- ./swagger generate client -f swagger.yml
 - cd ..
 after_success:
 - git config --global user.email "travis@travis-ci.org"
