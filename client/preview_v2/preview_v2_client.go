@@ -41,7 +41,7 @@ func (a *Client) GetPreview(params *GetPreviewParams) (*GetPreviewOK, error) {
 		PathPattern:        "/api/v2/files/{file}/preview",
 		ProducesMediaTypes: []string{"octet/stream"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"https"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetPreviewReader{formats: a.formats},
 		Context:            params.Context,

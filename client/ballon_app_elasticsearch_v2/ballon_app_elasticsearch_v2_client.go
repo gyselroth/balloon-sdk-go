@@ -41,7 +41,7 @@ func (a *Client) QueryElasticsearch(params *QueryElasticsearchParams) (*QueryEla
 		PathPattern:        "/api/v2/nodes/search",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"https"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &QueryElasticsearchReader{formats: a.formats},
 		Context:            params.Context,

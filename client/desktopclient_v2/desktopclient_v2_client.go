@@ -42,7 +42,7 @@ func (a *Client) GetDesktopClient(params *GetDesktopClientParams, writer io.Writ
 		PathPattern:        "/api/v2/desktop-clients/{format}/content",
 		ProducesMediaTypes: []string{"octet/stream"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"https"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDesktopClientReader{formats: a.formats, writer: writer},
 		Context:            params.Context,
