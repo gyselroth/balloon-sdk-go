@@ -29,7 +29,7 @@ type Client struct {
 /*
 QueryElasticsearch extendeds search query using elasticsearch
 */
-func (a *Client) QueryElasticsearch(params *QueryElasticsearchParams) (*QueryElasticsearchOK, error) {
+func (a *Client) QueryElasticsearch(params *QueryElasticsearchParams, authInfo runtime.ClientAuthInfoWriter) (*QueryElasticsearchOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewQueryElasticsearchParams()
@@ -44,6 +44,7 @@ func (a *Client) QueryElasticsearch(params *QueryElasticsearchParams) (*QueryEla
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &QueryElasticsearchReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

@@ -30,7 +30,7 @@ type Client struct {
 /*
 GetDesktopClient downloads balloon desktop client
 */
-func (a *Client) GetDesktopClient(params *GetDesktopClientParams, writer io.Writer) (*GetDesktopClientOK, error) {
+func (a *Client) GetDesktopClient(params *GetDesktopClientParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer) (*GetDesktopClientOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDesktopClientParams()
@@ -45,6 +45,7 @@ func (a *Client) GetDesktopClient(params *GetDesktopClientParams, writer io.Writ
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDesktopClientReader{formats: a.formats, writer: writer},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

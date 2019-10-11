@@ -29,7 +29,7 @@ type Client struct {
 /*
 CreateDocument Create new document from an existing office document template
 */
-func (a *Client) CreateDocument(params *CreateDocumentParams) (*CreateDocumentCreated, error) {
+func (a *Client) CreateDocument(params *CreateDocumentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDocumentCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDocumentParams()
@@ -44,6 +44,7 @@ func (a *Client) CreateDocument(params *CreateDocumentParams) (*CreateDocumentCr
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateDocumentReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -63,7 +64,7 @@ func (a *Client) CreateDocument(params *CreateDocumentParams) (*CreateDocumentCr
 /*
 GetWopiDocument gets document session information including document owner session user and document size
 */
-func (a *Client) GetWopiDocument(params *GetWopiDocumentParams) (*GetWopiDocumentOK, error) {
+func (a *Client) GetWopiDocument(params *GetWopiDocumentParams, authInfo runtime.ClientAuthInfoWriter) (*GetWopiDocumentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWopiDocumentParams()
@@ -78,6 +79,7 @@ func (a *Client) GetWopiDocument(params *GetWopiDocumentParams) (*GetWopiDocumen
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetWopiDocumentReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -97,7 +99,7 @@ func (a *Client) GetWopiDocument(params *GetWopiDocumentParams) (*GetWopiDocumen
 /*
 GetWopiDocumentContent gets document contents
 */
-func (a *Client) GetWopiDocumentContent(params *GetWopiDocumentContentParams) (*GetWopiDocumentContentOK, error) {
+func (a *Client) GetWopiDocumentContent(params *GetWopiDocumentContentParams, authInfo runtime.ClientAuthInfoWriter) (*GetWopiDocumentContentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWopiDocumentContentParams()
@@ -112,6 +114,7 @@ func (a *Client) GetWopiDocumentContent(params *GetWopiDocumentContentParams) (*
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetWopiDocumentContentReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -131,7 +134,7 @@ func (a *Client) GetWopiDocumentContent(params *GetWopiDocumentContentParams) (*
 /*
 UpdateWopiDocuemntContent saves document contents
 */
-func (a *Client) UpdateWopiDocuemntContent(params *UpdateWopiDocuemntContentParams) (*UpdateWopiDocuemntContentOK, error) {
+func (a *Client) UpdateWopiDocuemntContent(params *UpdateWopiDocuemntContentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateWopiDocuemntContentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateWopiDocuemntContentParams()
@@ -146,6 +149,7 @@ func (a *Client) UpdateWopiDocuemntContent(params *UpdateWopiDocuemntContentPara
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateWopiDocuemntContentReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

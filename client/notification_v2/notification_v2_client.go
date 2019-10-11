@@ -29,7 +29,7 @@ type Client struct {
 /*
 DeleteNotification deletes a notification
 */
-func (a *Client) DeleteNotification(params *DeleteNotificationParams) (*DeleteNotificationNoContent, error) {
+func (a *Client) DeleteNotification(params *DeleteNotificationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNotificationNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteNotificationParams()
@@ -44,6 +44,7 @@ func (a *Client) DeleteNotification(params *DeleteNotificationParams) (*DeleteNo
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteNotificationReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -63,7 +64,7 @@ func (a *Client) DeleteNotification(params *DeleteNotificationParams) (*DeleteNo
 /*
 GetMyNotifications gets my nofitifications
 */
-func (a *Client) GetMyNotifications(params *GetMyNotificationsParams) (*GetMyNotificationsOK, error) {
+func (a *Client) GetMyNotifications(params *GetMyNotificationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetMyNotificationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetMyNotificationsParams()
@@ -78,6 +79,7 @@ func (a *Client) GetMyNotifications(params *GetMyNotificationsParams) (*GetMyNot
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetMyNotificationsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -97,7 +99,7 @@ func (a *Client) GetMyNotifications(params *GetMyNotificationsParams) (*GetMyNot
 /*
 GetNotification gets a single notification
 */
-func (a *Client) GetNotification(params *GetNotificationParams) (*GetNotificationOK, error) {
+func (a *Client) GetNotification(params *GetNotificationParams, authInfo runtime.ClientAuthInfoWriter) (*GetNotificationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNotificationParams()
@@ -112,6 +114,7 @@ func (a *Client) GetNotification(params *GetNotificationParams) (*GetNotificatio
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNotificationReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -131,7 +134,7 @@ func (a *Client) GetNotification(params *GetNotificationParams) (*GetNotificatio
 /*
 PostNotification sends notification
 */
-func (a *Client) PostNotification(params *PostNotificationParams) (*PostNotificationAccepted, error) {
+func (a *Client) PostNotification(params *PostNotificationParams, authInfo runtime.ClientAuthInfoWriter) (*PostNotificationAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostNotificationParams()
@@ -146,6 +149,7 @@ func (a *Client) PostNotification(params *PostNotificationParams) (*PostNotifica
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PostNotificationReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -165,7 +169,7 @@ func (a *Client) PostNotification(params *PostNotificationParams) (*PostNotifica
 /*
 SendBroadcast sends notification to all users
 */
-func (a *Client) SendBroadcast(params *SendBroadcastParams) (*SendBroadcastAccepted, error) {
+func (a *Client) SendBroadcast(params *SendBroadcastParams, authInfo runtime.ClientAuthInfoWriter) (*SendBroadcastAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSendBroadcastParams()
@@ -180,6 +184,7 @@ func (a *Client) SendBroadcast(params *SendBroadcastParams) (*SendBroadcastAccep
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SendBroadcastReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -199,7 +204,7 @@ func (a *Client) SendBroadcast(params *SendBroadcastParams) (*SendBroadcastAccep
 /*
 SendMail sends mail
 */
-func (a *Client) SendMail(params *SendMailParams) (*SendMailAccepted, error) {
+func (a *Client) SendMail(params *SendMailParams, authInfo runtime.ClientAuthInfoWriter) (*SendMailAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSendMailParams()
@@ -214,6 +219,7 @@ func (a *Client) SendMail(params *SendMailParams) (*SendMailAccepted, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SendMailReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -233,7 +239,7 @@ func (a *Client) SendMail(params *SendMailParams) (*SendMailAccepted, error) {
 /*
 SubscribeNode receives node updates
 */
-func (a *Client) SubscribeNode(params *SubscribeNodeParams) (*SubscribeNodeAccepted, error) {
+func (a *Client) SubscribeNode(params *SubscribeNodeParams, authInfo runtime.ClientAuthInfoWriter) (*SubscribeNodeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSubscribeNodeParams()
@@ -248,6 +254,7 @@ func (a *Client) SubscribeNode(params *SubscribeNodeParams) (*SubscribeNodeAccep
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &SubscribeNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

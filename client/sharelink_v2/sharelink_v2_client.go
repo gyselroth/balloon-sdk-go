@@ -29,7 +29,7 @@ type Client struct {
 /*
 CreateLink creates a unique sharing link of a node global accessible a possible existing link will be deleted if this method will be called
 */
-func (a *Client) CreateLink(params *CreateLinkParams) (*CreateLinkCreated, error) {
+func (a *Client) CreateLink(params *CreateLinkParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLinkCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateLinkParams()
@@ -44,6 +44,7 @@ func (a *Client) CreateLink(params *CreateLinkParams) (*CreateLinkCreated, error
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -63,7 +64,7 @@ func (a *Client) CreateLink(params *CreateLinkParams) (*CreateLinkCreated, error
 /*
 DeleteLink deletes an existing sharing link
 */
-func (a *Client) DeleteLink(params *DeleteLinkParams) (*DeleteLinkNoContent, error) {
+func (a *Client) DeleteLink(params *DeleteLinkParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLinkNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLinkParams()
@@ -78,6 +79,7 @@ func (a *Client) DeleteLink(params *DeleteLinkParams) (*DeleteLinkNoContent, err
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteLinkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

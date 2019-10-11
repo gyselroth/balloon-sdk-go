@@ -29,7 +29,7 @@ type Client struct {
 /*
 GetPreview gets a preview of the files content the body either contains an encoded string or a jpeg binary
 */
-func (a *Client) GetPreview(params *GetPreviewParams) (*GetPreviewOK, error) {
+func (a *Client) GetPreview(params *GetPreviewParams, authInfo runtime.ClientAuthInfoWriter) (*GetPreviewOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPreviewParams()
@@ -44,6 +44,7 @@ func (a *Client) GetPreview(params *GetPreviewParams) (*GetPreviewOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetPreviewReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

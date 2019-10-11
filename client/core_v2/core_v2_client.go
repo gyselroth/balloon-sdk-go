@@ -30,7 +30,7 @@ type Client struct {
 /*
 AddGroup adds new group
 */
-func (a *Client) AddGroup(params *AddGroupParams) (*AddGroupCreated, error) {
+func (a *Client) AddGroup(params *AddGroupParams, authInfo runtime.ClientAuthInfoWriter) (*AddGroupCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddGroupParams()
@@ -45,6 +45,7 @@ func (a *Client) AddGroup(params *AddGroupParams) (*AddGroupCreated, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AddGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -64,7 +65,7 @@ func (a *Client) AddGroup(params *AddGroupParams) (*AddGroupCreated, error) {
 /*
 AddUser adds new user
 */
-func (a *Client) AddUser(params *AddUserParams) (*AddUserCreated, error) {
+func (a *Client) AddUser(params *AddUserParams, authInfo runtime.ClientAuthInfoWriter) (*AddUserCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddUserParams()
@@ -79,6 +80,7 @@ func (a *Client) AddUser(params *AddUserParams) (*AddUserCreated, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AddUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -98,7 +100,7 @@ func (a *Client) AddUser(params *AddUserParams) (*AddUserCreated, error) {
 /*
 CloneNode clones existing node
 */
-func (a *Client) CloneNode(params *CloneNodeParams) (*CloneNodeCreated, *CloneNodeMultiStatus, error) {
+func (a *Client) CloneNode(params *CloneNodeParams, authInfo runtime.ClientAuthInfoWriter) (*CloneNodeCreated, *CloneNodeMultiStatus, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCloneNodeParams()
@@ -113,6 +115,7 @@ func (a *Client) CloneNode(params *CloneNodeParams) (*CloneNodeCreated, *CloneNo
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CloneNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -133,7 +136,7 @@ func (a *Client) CloneNode(params *CloneNodeParams) (*CloneNodeCreated, *CloneNo
 /*
 CreateCollection creates a new collection
 */
-func (a *Client) CreateCollection(params *CreateCollectionParams) (*CreateCollectionCreated, error) {
+func (a *Client) CreateCollection(params *CreateCollectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateCollectionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateCollectionParams()
@@ -148,6 +151,7 @@ func (a *Client) CreateCollection(params *CreateCollectionParams) (*CreateCollec
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateCollectionReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -167,7 +171,7 @@ func (a *Client) CreateCollection(params *CreateCollectionParams) (*CreateCollec
 /*
 CreateRootCollection creates a new collection in root
 */
-func (a *Client) CreateRootCollection(params *CreateRootCollectionParams) (*CreateRootCollectionCreated, error) {
+func (a *Client) CreateRootCollection(params *CreateRootCollectionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRootCollectionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRootCollectionParams()
@@ -182,6 +186,7 @@ func (a *Client) CreateRootCollection(params *CreateRootCollectionParams) (*Crea
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateRootCollectionReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -201,7 +206,7 @@ func (a *Client) CreateRootCollection(params *CreateRootCollectionParams) (*Crea
 /*
 CreateToken os a u t h2 o ID c token endpoint
 */
-func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) {
+func (a *Client) CreateToken(params *CreateTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTokenParams()
@@ -216,6 +221,7 @@ func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateTokenReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -235,7 +241,7 @@ func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) 
 /*
 DeleteGroup deletes group
 */
-func (a *Client) DeleteGroup(params *DeleteGroupParams) (*DeleteGroupNoContent, error) {
+func (a *Client) DeleteGroup(params *DeleteGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteGroupNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteGroupParams()
@@ -250,6 +256,7 @@ func (a *Client) DeleteGroup(params *DeleteGroupParams) (*DeleteGroupNoContent, 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -269,7 +276,7 @@ func (a *Client) DeleteGroup(params *DeleteGroupParams) (*DeleteGroupNoContent, 
 /*
 DeleteNode deletes node
 */
-func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeNoContent, error) {
+func (a *Client) DeleteNode(params *DeleteNodeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNodeNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteNodeParams()
@@ -284,6 +291,7 @@ func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeNoContent, err
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -303,7 +311,7 @@ func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeNoContent, err
 /*
 DeleteShare does only remove sharing options and transform a share back into a normal collection there will not be any data loss after this action all existing references would be removed automatically
 */
-func (a *Client) DeleteShare(params *DeleteShareParams) (*DeleteShareNoContent, error) {
+func (a *Client) DeleteShare(params *DeleteShareParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteShareNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteShareParams()
@@ -318,6 +326,7 @@ func (a *Client) DeleteShare(params *DeleteShareParams) (*DeleteShareNoContent, 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteShareReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -337,7 +346,7 @@ func (a *Client) DeleteShare(params *DeleteShareParams) (*DeleteShareNoContent, 
 /*
 DeleteUser deletes user
 */
-func (a *Client) DeleteUser(params *DeleteUserParams) (*DeleteUserNoContent, error) {
+func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUserParams()
@@ -352,6 +361,7 @@ func (a *Client) DeleteUser(params *DeleteUserParams) (*DeleteUserNoContent, err
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -371,7 +381,7 @@ func (a *Client) DeleteUser(params *DeleteUserParams) (*DeleteUserNoContent, err
 /*
 GetAPI gets server status
 */
-func (a *Client) GetAPI(params *GetAPIParams) (*GetAPIOK, error) {
+func (a *Client) GetAPI(params *GetAPIParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAPIParams()
@@ -386,6 +396,7 @@ func (a *Client) GetAPI(params *GetAPIParams) (*GetAPIOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetAPIReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -405,7 +416,7 @@ func (a *Client) GetAPI(params *GetAPIParams) (*GetAPIOK, error) {
 /*
 GetChildren gets all children of a collection
 */
-func (a *Client) GetChildren(params *GetChildrenParams) (*GetChildrenOK, error) {
+func (a *Client) GetChildren(params *GetChildrenParams, authInfo runtime.ClientAuthInfoWriter) (*GetChildrenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetChildrenParams()
@@ -420,6 +431,7 @@ func (a *Client) GetChildren(params *GetChildrenParams) (*GetChildrenOK, error) 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetChildrenReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -439,7 +451,7 @@ func (a *Client) GetChildren(params *GetChildrenParams) (*GetChildrenOK, error) 
 /*
 GetCollections gets all collections
 */
-func (a *Client) GetCollections(params *GetCollectionsParams) (*GetCollectionsOK, error) {
+func (a *Client) GetCollections(params *GetCollectionsParams, authInfo runtime.ClientAuthInfoWriter) (*GetCollectionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetCollectionsParams()
@@ -454,6 +466,7 @@ func (a *Client) GetCollections(params *GetCollectionsParams) (*GetCollectionsOK
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetCollectionsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -473,7 +486,7 @@ func (a *Client) GetCollections(params *GetCollectionsParams) (*GetCollectionsOK
 /*
 GetContent downloads node contents note that collections are zipped on the fly
 */
-func (a *Client) GetContent(params *GetContentParams, writer io.Writer) (*GetContentOK, error) {
+func (a *Client) GetContent(params *GetContentParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer) (*GetContentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetContentParams()
@@ -488,6 +501,7 @@ func (a *Client) GetContent(params *GetContentParams, writer io.Writer) (*GetCon
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetContentReader{formats: a.formats, writer: writer},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -507,7 +521,7 @@ func (a *Client) GetContent(params *GetContentParams, writer io.Writer) (*GetCon
 /*
 GetCurrentUser gets user object of the current authenticated user
 */
-func (a *Client) GetCurrentUser(params *GetCurrentUserParams) (*GetCurrentUserOK, error) {
+func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetCurrentUserParams()
@@ -522,6 +536,7 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams) (*GetCurrentUserOK
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetCurrentUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -541,7 +556,7 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams) (*GetCurrentUserOK
 /*
 GetDeletedNodes returns delete nodes excluding sub nodes of deleted collections
 */
-func (a *Client) GetDeletedNodes(params *GetDeletedNodesParams) (*GetDeletedNodesOK, error) {
+func (a *Client) GetDeletedNodes(params *GetDeletedNodesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeletedNodesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeletedNodesParams()
@@ -556,6 +571,7 @@ func (a *Client) GetDeletedNodes(params *GetDeletedNodesParams) (*GetDeletedNode
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDeletedNodesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -575,7 +591,7 @@ func (a *Client) GetDeletedNodes(params *GetDeletedNodesParams) (*GetDeletedNode
 /*
 GetDelta delta stream with cursor support
 */
-func (a *Client) GetDelta(params *GetDeltaParams) (*GetDeltaOK, error) {
+func (a *Client) GetDelta(params *GetDeltaParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeltaOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeltaParams()
@@ -590,6 +606,7 @@ func (a *Client) GetDelta(params *GetDeltaParams) (*GetDeltaOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetDeltaReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -609,7 +626,7 @@ func (a *Client) GetDelta(params *GetDeltaParams) (*GetDeltaOK, error) {
 /*
 GetEventLog gets event log containing all operations which are made by the user himself or share members
 */
-func (a *Client) GetEventLog(params *GetEventLogParams) (*GetEventLogOK, error) {
+func (a *Client) GetEventLog(params *GetEventLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetEventLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEventLogParams()
@@ -624,6 +641,7 @@ func (a *Client) GetEventLog(params *GetEventLogParams) (*GetEventLogOK, error) 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetEventLogReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -643,7 +661,7 @@ func (a *Client) GetEventLog(params *GetEventLogParams) (*GetEventLogOK, error) 
 /*
 GetFileHistory gets a full change history of a file
 */
-func (a *Client) GetFileHistory(params *GetFileHistoryParams) (*GetFileHistoryOK, error) {
+func (a *Client) GetFileHistory(params *GetFileHistoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetFileHistoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetFileHistoryParams()
@@ -658,6 +676,7 @@ func (a *Client) GetFileHistory(params *GetFileHistoryParams) (*GetFileHistoryOK
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFileHistoryReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -677,7 +696,7 @@ func (a *Client) GetFileHistory(params *GetFileHistoryParams) (*GetFileHistoryOK
 /*
 GetFiles gets all files
 */
-func (a *Client) GetFiles(params *GetFilesParams) (*GetFilesOK, error) {
+func (a *Client) GetFiles(params *GetFilesParams, authInfo runtime.ClientAuthInfoWriter) (*GetFilesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetFilesParams()
@@ -692,6 +711,7 @@ func (a *Client) GetFiles(params *GetFilesParams) (*GetFilesOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetFilesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -711,7 +731,7 @@ func (a *Client) GetFiles(params *GetFilesParams) (*GetFilesOK, error) {
 /*
 GetGroup gets single group
 */
-func (a *Client) GetGroup(params *GetGroupParams) (*GetGroupOK, error) {
+func (a *Client) GetGroup(params *GetGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGroupParams()
@@ -726,6 +746,7 @@ func (a *Client) GetGroup(params *GetGroupParams) (*GetGroupOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -745,7 +766,7 @@ func (a *Client) GetGroup(params *GetGroupParams) (*GetGroupOK, error) {
 /*
 GetGroupMembers requests all member of a group
 */
-func (a *Client) GetGroupMembers(params *GetGroupMembersParams) (*GetGroupMembersOK, error) {
+func (a *Client) GetGroupMembers(params *GetGroupMembersParams, authInfo runtime.ClientAuthInfoWriter) (*GetGroupMembersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGroupMembersParams()
@@ -760,6 +781,7 @@ func (a *Client) GetGroupMembers(params *GetGroupMembersParams) (*GetGroupMember
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetGroupMembersReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -781,7 +803,7 @@ GetGroups gets groups
 
 A group is a colletion of users
 */
-func (a *Client) GetGroups(params *GetGroupsParams) (*GetGroupsOK, error) {
+func (a *Client) GetGroups(params *GetGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetGroupsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGroupsParams()
@@ -796,6 +818,7 @@ func (a *Client) GetGroups(params *GetGroupsParams) (*GetGroupsOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetGroupsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -815,7 +838,7 @@ func (a *Client) GetGroups(params *GetGroupsParams) (*GetGroupsOK, error) {
 /*
 GetLastCursor uses this method to request the latest cursor if you only need to now if there are changes on the server this method will not return any other data than the newest cursor to request a feed with all deltas request delta
 */
-func (a *Client) GetLastCursor(params *GetLastCursorParams) (*GetLastCursorOK, error) {
+func (a *Client) GetLastCursor(params *GetLastCursorParams, authInfo runtime.ClientAuthInfoWriter) (*GetLastCursorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLastCursorParams()
@@ -830,6 +853,7 @@ func (a *Client) GetLastCursor(params *GetLastCursorParams) (*GetLastCursorOK, e
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetLastCursorReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -849,7 +873,7 @@ func (a *Client) GetLastCursor(params *GetLastCursorParams) (*GetLastCursorOK, e
 /*
 GetNode gets single node
 */
-func (a *Client) GetNode(params *GetNodeParams) (*GetNodeOK, error) {
+func (a *Client) GetNode(params *GetNodeParams, authInfo runtime.ClientAuthInfoWriter) (*GetNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNodeParams()
@@ -864,6 +888,7 @@ func (a *Client) GetNode(params *GetNodeParams) (*GetNodeOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -883,7 +908,7 @@ func (a *Client) GetNode(params *GetNodeParams) (*GetNodeOK, error) {
 /*
 GetNodeAttributeSummary gets summary of node usage
 */
-func (a *Client) GetNodeAttributeSummary(params *GetNodeAttributeSummaryParams) (*GetNodeAttributeSummaryOK, error) {
+func (a *Client) GetNodeAttributeSummary(params *GetNodeAttributeSummaryParams, authInfo runtime.ClientAuthInfoWriter) (*GetNodeAttributeSummaryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNodeAttributeSummaryParams()
@@ -898,6 +923,7 @@ func (a *Client) GetNodeAttributeSummary(params *GetNodeAttributeSummaryParams) 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNodeAttributeSummaryReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -917,7 +943,7 @@ func (a *Client) GetNodeAttributeSummary(params *GetNodeAttributeSummaryParams) 
 /*
 GetNodeEventLog gets event log containing all operations which are made by the user himself or share members on a given node
 */
-func (a *Client) GetNodeEventLog(params *GetNodeEventLogParams) (*GetNodeEventLogOK, error) {
+func (a *Client) GetNodeEventLog(params *GetNodeEventLogParams, authInfo runtime.ClientAuthInfoWriter) (*GetNodeEventLogOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNodeEventLogParams()
@@ -932,6 +958,7 @@ func (a *Client) GetNodeEventLog(params *GetNodeEventLogParams) (*GetNodeEventLo
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNodeEventLogReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -951,7 +978,7 @@ func (a *Client) GetNodeEventLog(params *GetNodeEventLogParams) (*GetNodeEventLo
 /*
 GetNodes gets all nodes
 */
-func (a *Client) GetNodes(params *GetNodesParams) (*GetNodesOK, error) {
+func (a *Client) GetNodes(params *GetNodesParams, authInfo runtime.ClientAuthInfoWriter) (*GetNodesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNodesParams()
@@ -966,6 +993,7 @@ func (a *Client) GetNodes(params *GetNodesParams) (*GetNodesOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNodesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -985,7 +1013,7 @@ func (a *Client) GetNodes(params *GetNodesParams) (*GetNodesOK, error) {
 /*
 GetParentNodes thes hirarchy of all parent nodes is ordered in a single level array beginning with the collection on the highest level
 */
-func (a *Client) GetParentNodes(params *GetParentNodesParams) (*GetParentNodesOK, error) {
+func (a *Client) GetParentNodes(params *GetParentNodesParams, authInfo runtime.ClientAuthInfoWriter) (*GetParentNodesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetParentNodesParams()
@@ -1000,6 +1028,7 @@ func (a *Client) GetParentNodes(params *GetParentNodesParams) (*GetParentNodesOK
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetParentNodesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1019,7 +1048,7 @@ func (a *Client) GetParentNodes(params *GetParentNodesParams) (*GetParentNodesOK
 /*
 GetRootChildren gets all children of the root collection
 */
-func (a *Client) GetRootChildren(params *GetRootChildrenParams) (*GetRootChildrenOK, error) {
+func (a *Client) GetRootChildren(params *GetRootChildrenParams, authInfo runtime.ClientAuthInfoWriter) (*GetRootChildrenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRootChildrenParams()
@@ -1034,6 +1063,7 @@ func (a *Client) GetRootChildren(params *GetRootChildrenParams) (*GetRootChildre
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRootChildrenReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1053,7 +1083,7 @@ func (a *Client) GetRootChildren(params *GetRootChildrenParams) (*GetRootChildre
 /*
 GetShare gets share acl and share name
 */
-func (a *Client) GetShare(params *GetShareParams) (*GetShareOK, error) {
+func (a *Client) GetShare(params *GetShareParams, authInfo runtime.ClientAuthInfoWriter) (*GetShareOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetShareParams()
@@ -1068,6 +1098,7 @@ func (a *Client) GetShare(params *GetShareParams) (*GetShareOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetShareReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1087,7 +1118,7 @@ func (a *Client) GetShare(params *GetShareParams) (*GetShareOK, error) {
 /*
 GetUser gets single user
 */
-func (a *Client) GetUser(params *GetUserParams) (*GetUserOK, error) {
+func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUserParams()
@@ -1102,6 +1133,7 @@ func (a *Client) GetUser(params *GetUserParams) (*GetUserOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1121,7 +1153,7 @@ func (a *Client) GetUser(params *GetUserParams) (*GetUserOK, error) {
 /*
 GetUserAvatar gets user avatar
 */
-func (a *Client) GetUserAvatar(params *GetUserAvatarParams) (*GetUserAvatarOK, error) {
+func (a *Client) GetUserAvatar(params *GetUserAvatarParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAvatarOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUserAvatarParams()
@@ -1136,6 +1168,7 @@ func (a *Client) GetUserAvatar(params *GetUserAvatarParams) (*GetUserAvatarOK, e
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetUserAvatarReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1155,7 +1188,7 @@ func (a *Client) GetUserAvatar(params *GetUserAvatarParams) (*GetUserAvatarOK, e
 /*
 GetUserGroups requests all groups of a user
 */
-func (a *Client) GetUserGroups(params *GetUserGroupsParams) (*GetUserGroupsOK, error) {
+func (a *Client) GetUserGroups(params *GetUserGroupsParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserGroupsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUserGroupsParams()
@@ -1170,6 +1203,7 @@ func (a *Client) GetUserGroups(params *GetUserGroupsParams) (*GetUserGroupsOK, e
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetUserGroupsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1191,7 +1225,7 @@ GetUsers gets users
 
 A user is a colletion of users
 */
-func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
+func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersParams()
@@ -1206,6 +1240,7 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetUsersReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1225,7 +1260,7 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 /*
 GetV2 gets server status
 */
-func (a *Client) GetV2(params *GetV2Params) (*GetV2OK, error) {
+func (a *Client) GetV2(params *GetV2Params, authInfo runtime.ClientAuthInfoWriter) (*GetV2OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetV2Params()
@@ -1240,6 +1275,7 @@ func (a *Client) GetV2(params *GetV2Params) (*GetV2OK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetV2Reader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1259,7 +1295,7 @@ func (a *Client) GetV2(params *GetV2Params) (*GetV2OK, error) {
 /*
 MoveNode moves node change parent collection single or multiple ones
 */
-func (a *Client) MoveNode(params *MoveNodeParams) (*MoveNodeOK, *MoveNodeMultiStatus, error) {
+func (a *Client) MoveNode(params *MoveNodeParams, authInfo runtime.ClientAuthInfoWriter) (*MoveNodeOK, *MoveNodeMultiStatus, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveNodeParams()
@@ -1274,6 +1310,7 @@ func (a *Client) MoveNode(params *MoveNodeParams) (*MoveNodeOK, *MoveNodeMultiSt
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &MoveNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1294,7 +1331,7 @@ func (a *Client) MoveNode(params *MoveNodeParams) (*MoveNodeOK, *MoveNodeMultiSt
 /*
 PatchGroup sets attributes for group
 */
-func (a *Client) PatchGroup(params *PatchGroupParams) (*PatchGroupOK, error) {
+func (a *Client) PatchGroup(params *PatchGroupParams, authInfo runtime.ClientAuthInfoWriter) (*PatchGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchGroupParams()
@@ -1309,6 +1346,7 @@ func (a *Client) PatchGroup(params *PatchGroupParams) (*PatchGroupOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1328,7 +1366,7 @@ func (a *Client) PatchGroup(params *PatchGroupParams) (*PatchGroupOK, error) {
 /*
 PatchUser sets attributes for user
 */
-func (a *Client) PatchUser(params *PatchUserParams) (*PatchUserOK, error) {
+func (a *Client) PatchUser(params *PatchUserParams, authInfo runtime.ClientAuthInfoWriter) (*PatchUserOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchUserParams()
@@ -1343,6 +1381,7 @@ func (a *Client) PatchUser(params *PatchUserParams) (*PatchUserOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1362,7 +1401,7 @@ func (a *Client) PatchUser(params *PatchUserParams) (*PatchUserOK, error) {
 /*
 RollbackFile rollbacks to a recent version from history use the version number from history
 */
-func (a *Client) RollbackFile(params *RollbackFileParams) (*RollbackFileOK, error) {
+func (a *Client) RollbackFile(params *RollbackFileParams, authInfo runtime.ClientAuthInfoWriter) (*RollbackFileOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRollbackFileParams()
@@ -1377,6 +1416,7 @@ func (a *Client) RollbackFile(params *RollbackFileParams) (*RollbackFileOK, erro
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &RollbackFileReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1396,7 +1436,7 @@ func (a *Client) RollbackFile(params *RollbackFileParams) (*RollbackFileOK, erro
 /*
 ShareCollection creates a new share from an existing collection
 */
-func (a *Client) ShareCollection(params *ShareCollectionParams) (*ShareCollectionOK, error) {
+func (a *Client) ShareCollection(params *ShareCollectionParams, authInfo runtime.ClientAuthInfoWriter) (*ShareCollectionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShareCollectionParams()
@@ -1411,6 +1451,7 @@ func (a *Client) ShareCollection(params *ShareCollectionParams) (*ShareCollectio
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ShareCollectionReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1430,7 +1471,7 @@ func (a *Client) ShareCollection(params *ShareCollectionParams) (*ShareCollectio
 /*
 UndeleteGroup restores deleted group
 */
-func (a *Client) UndeleteGroup(params *UndeleteGroupParams) (*UndeleteGroupOK, error) {
+func (a *Client) UndeleteGroup(params *UndeleteGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UndeleteGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUndeleteGroupParams()
@@ -1445,6 +1486,7 @@ func (a *Client) UndeleteGroup(params *UndeleteGroupParams) (*UndeleteGroupOK, e
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UndeleteGroupReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1464,7 +1506,7 @@ func (a *Client) UndeleteGroup(params *UndeleteGroupParams) (*UndeleteGroupOK, e
 /*
 UndeleteNode undeletes restore from trash a single node or multiple ones
 */
-func (a *Client) UndeleteNode(params *UndeleteNodeParams) (*UndeleteNodeOK, *UndeleteNodeMultiStatus, error) {
+func (a *Client) UndeleteNode(params *UndeleteNodeParams, authInfo runtime.ClientAuthInfoWriter) (*UndeleteNodeOK, *UndeleteNodeMultiStatus, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUndeleteNodeParams()
@@ -1479,6 +1521,7 @@ func (a *Client) UndeleteNode(params *UndeleteNodeParams) (*UndeleteNodeOK, *Und
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UndeleteNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1499,7 +1542,7 @@ func (a *Client) UndeleteNode(params *UndeleteNodeParams) (*UndeleteNodeOK, *Und
 /*
 UndeleteUser restores deleted user
 */
-func (a *Client) UndeleteUser(params *UndeleteUserParams) (*UndeleteUserOK, error) {
+func (a *Client) UndeleteUser(params *UndeleteUserParams, authInfo runtime.ClientAuthInfoWriter) (*UndeleteUserOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUndeleteUserParams()
@@ -1514,6 +1557,7 @@ func (a *Client) UndeleteUser(params *UndeleteUserParams) (*UndeleteUserOK, erro
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UndeleteUserReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1533,7 +1577,7 @@ func (a *Client) UndeleteUser(params *UndeleteUserParams) (*UndeleteUserOK, erro
 /*
 UpdateNode changes attributes
 */
-func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
+func (a *Client) UpdateNode(params *UpdateNodeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateNodeParams()
@@ -1548,6 +1592,7 @@ func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1567,7 +1612,7 @@ func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
 /*
 UploadChunk uploads a file chunk you have to manually splitt the binary data into multiple chunks and upload them successively bang using this method once uploading the last chunk the server will automatically create or update the file node you may set the parent collection name and or custom attributes only with the last request to save traffic
 */
-func (a *Client) UploadChunk(params *UploadChunkParams) (*UploadChunkOK, *UploadChunkCreated, *UploadChunkPartialContent, error) {
+func (a *Client) UploadChunk(params *UploadChunkParams, authInfo runtime.ClientAuthInfoWriter) (*UploadChunkOK, *UploadChunkCreated, *UploadChunkPartialContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadChunkParams()
@@ -1582,6 +1627,7 @@ func (a *Client) UploadChunk(params *UploadChunkParams) (*UploadChunkOK, *Upload
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UploadChunkReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1604,7 +1650,7 @@ func (a *Client) UploadChunk(params *UploadChunkParams) (*UploadChunkOK, *Upload
 /*
 UploadFile uploads an entire file in one shot use this endpoint only for small files for bigger files use the chunking endpoint
 */
-func (a *Client) UploadFile(params *UploadFileParams) (*UploadFileCreated, error) {
+func (a *Client) UploadFile(params *UploadFileParams, authInfo runtime.ClientAuthInfoWriter) (*UploadFileCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadFileParams()
@@ -1619,6 +1665,7 @@ func (a *Client) UploadFile(params *UploadFileParams) (*UploadFileCreated, error
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UploadFileReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

@@ -29,7 +29,7 @@ type Client struct {
 /*
 AddSlave adds new convert slave
 */
-func (a *Client) AddSlave(params *AddSlaveParams) (*AddSlaveAccepted, error) {
+func (a *Client) AddSlave(params *AddSlaveParams, authInfo runtime.ClientAuthInfoWriter) (*AddSlaveAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddSlaveParams()
@@ -44,6 +44,7 @@ func (a *Client) AddSlave(params *AddSlaveParams) (*AddSlaveAccepted, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AddSlaveReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -63,7 +64,7 @@ func (a *Client) AddSlave(params *AddSlaveParams) (*AddSlaveAccepted, error) {
 /*
 DeleteSlave deletes slave
 */
-func (a *Client) DeleteSlave(params *DeleteSlaveParams) (*DeleteSlaveNoContent, error) {
+func (a *Client) DeleteSlave(params *DeleteSlaveParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSlaveNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSlaveParams()
@@ -78,6 +79,7 @@ func (a *Client) DeleteSlave(params *DeleteSlaveParams) (*DeleteSlaveNoContent, 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteSlaveReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -97,7 +99,7 @@ func (a *Client) DeleteSlave(params *DeleteSlaveParams) (*DeleteSlaveNoContent, 
 /*
 GetSlave gets single slave
 */
-func (a *Client) GetSlave(params *GetSlaveParams) (*GetSlaveOK, error) {
+func (a *Client) GetSlave(params *GetSlaveParams, authInfo runtime.ClientAuthInfoWriter) (*GetSlaveOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSlaveParams()
@@ -112,6 +114,7 @@ func (a *Client) GetSlave(params *GetSlaveParams) (*GetSlaveOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetSlaveReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -131,7 +134,7 @@ func (a *Client) GetSlave(params *GetSlaveParams) (*GetSlaveOK, error) {
 /*
 GetSlaves gets existing convert slaves
 */
-func (a *Client) GetSlaves(params *GetSlavesParams) (*GetSlavesOK, error) {
+func (a *Client) GetSlaves(params *GetSlavesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSlavesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSlavesParams()
@@ -146,6 +149,7 @@ func (a *Client) GetSlaves(params *GetSlavesParams) (*GetSlavesOK, error) {
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetSlavesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -165,7 +169,7 @@ func (a *Client) GetSlaves(params *GetSlavesParams) (*GetSlavesOK, error) {
 /*
 GetSupportedFormats gets supported file formats to convert to formats do vary between files
 */
-func (a *Client) GetSupportedFormats(params *GetSupportedFormatsParams) (*GetSupportedFormatsOK, error) {
+func (a *Client) GetSupportedFormats(params *GetSupportedFormatsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSupportedFormatsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSupportedFormatsParams()
@@ -180,6 +184,7 @@ func (a *Client) GetSupportedFormats(params *GetSupportedFormatsParams) (*GetSup
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetSupportedFormatsReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
