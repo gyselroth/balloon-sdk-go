@@ -58,21 +58,23 @@ func NewGetUsersOK() *GetUsersOK {
 List of users
 */
 type GetUsersOK struct {
-	Payload []*models.CoreV2Users
+	Payload *models.CoreV2Users
 }
 
 func (o *GetUsersOK) Error() string {
 	return fmt.Sprintf("[GET /api/v2/users][%d] getUsersOK  %+v", 200, o.Payload)
 }
 
-func (o *GetUsersOK) GetPayload() []*models.CoreV2Users {
+func (o *GetUsersOK) GetPayload() *models.CoreV2Users {
 	return o.Payload
 }
 
 func (o *GetUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.CoreV2Users)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
