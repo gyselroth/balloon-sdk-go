@@ -80,7 +80,7 @@ const (
 	CoreV2ACLRulePrivilegeM string = "m"
 
 	// CoreV2ACLRulePrivilegeW captures enum value "w+"
-	CoreV2ACLRulePrivilegeW string = "w+"
+	CoreV2ACLRulePrivilegeWP string = "w+"
 
 	// CoreV2ACLRulePrivilegeD captures enum value "d"
 	CoreV2ACLRulePrivilegeD string = "d"
