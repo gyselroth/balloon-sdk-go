@@ -2622,7 +2622,7 @@ definitions:
         - rw
         - w
         - m
-        - w+
+        - rp
         - d
       role:
         description: "Points to the share owner. If the node is not part of any share this is null."

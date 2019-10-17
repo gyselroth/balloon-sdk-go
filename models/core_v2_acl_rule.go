@@ -23,7 +23,7 @@ type CoreV2ACLRule struct {
 	ID string `json:"id,omitempty"`
 
 	// Privilege.
-	// Enum: [rw w m w+ d]
+	// Enum: [rw w m rp d]
 	Privilege string `json:"privilege,omitempty"`
 
 	// role
@@ -60,7 +60,7 @@ var coreV2AclRuleTypePrivilegePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["rw","w","m","w+","d"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["rw","w","m","rp","d"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -79,8 +79,8 @@ const (
 	// CoreV2ACLRulePrivilegeM captures enum value "m"
 	CoreV2ACLRulePrivilegeM string = "m"
 
-	// CoreV2ACLRulePrivilegeW captures enum value "w+"
-	CoreV2ACLRulePrivilegeW string = "w+"
+	// CoreV2ACLRulePrivilegeRp captures enum value "rp"
+	CoreV2ACLRulePrivilegeRp string = "rp"
 
 	// CoreV2ACLRulePrivilegeD captures enum value "d"
 	CoreV2ACLRulePrivilegeD string = "d"
