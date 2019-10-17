@@ -55,7 +55,7 @@ func NewGetUserGroupsOK() *GetUserGroupsOK {
 
 /*GetUserGroupsOK handles this case with default header values.
 
-Groups
+List of groups
 */
 type GetUserGroupsOK struct {
 	Payload *models.CoreV2Groups

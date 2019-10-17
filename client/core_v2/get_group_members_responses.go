@@ -58,21 +58,23 @@ func NewGetGroupMembersOK() *GetGroupMembersOK {
 List of users
 */
 type GetGroupMembersOK struct {
-	Payload []*models.CoreV2User
+	Payload *models.CoreV2Users
 }
 
 func (o *GetGroupMembersOK) Error() string {
 	return fmt.Sprintf("[GET /api/v2/groups/{group}/members][%d] getGroupMembersOK  %+v", 200, o.Payload)
 }
 
-func (o *GetGroupMembersOK) GetPayload() []*models.CoreV2User {
+func (o *GetGroupMembersOK) GetPayload() *models.CoreV2Users {
 	return o.Payload
 }
 
 func (o *GetGroupMembersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.CoreV2Users)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

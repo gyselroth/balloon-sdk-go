@@ -26,6 +26,9 @@ type CoreV2Resource struct {
 
 	// Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
 	ID string `json:"id,omitempty"`
+
+	// Resource type
+	Kind string `json:"kind,omitempty"`
 }
 
 // Validate validates this core v2 resource
