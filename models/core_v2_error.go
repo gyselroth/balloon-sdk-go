@@ -16,7 +16,7 @@ import (
 type CoreV2Error struct {
 
 	// code
-	Code string `json:"code,omitempty"`
+	Code float64 `json:"code,omitempty"`
 
 	// error
 	Error string `json:"error,omitempty"`

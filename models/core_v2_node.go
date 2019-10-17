@@ -21,7 +21,7 @@ type CoreV2Node struct {
 	CoreV2Resource
 
 	// Access level.
-	// Enum: [rw w m w+]
+	// Enum: [rw w m rp]
 	Access *string `json:"access,omitempty"`
 
 	// ISO 8601 timestamp when the resource was changed.
@@ -286,7 +286,7 @@ var coreV2NodeTypeAccessPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["rw","w","m","w+"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["rw","w","m","rp"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
