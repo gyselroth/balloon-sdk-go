@@ -30,6 +30,18 @@ func (o *PatchUserReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPatchUserBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPatchUserUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewPatchUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *PatchUserReader) ReadResponse(response runtime.ClientResponse, consumer
 		return nil, result
 	case 404:
 		result := NewPatchUserNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewPatchUserUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPatchUserInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *PatchUserOK) readResponse(response runtime.ClientResponse, consumer run
 	return nil
 }
 
+// NewPatchUserBadRequest creates a PatchUserBadRequest with default headers values
+func NewPatchUserBadRequest() *PatchUserBadRequest {
+	return &PatchUserBadRequest{}
+}
+
+/*PatchUserBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type PatchUserBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchUserBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PatchUserBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUserUnauthorized creates a PatchUserUnauthorized with default headers values
+func NewPatchUserUnauthorized() *PatchUserUnauthorized {
+	return &PatchUserUnauthorized{}
+}
+
+/*PatchUserUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type PatchUserUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchUserUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchUserUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewPatchUserForbidden creates a PatchUserForbidden with default headers values
 func NewPatchUserForbidden() *PatchUserForbidden {
 	return &PatchUserForbidden{}
@@ -88,16 +178,28 @@ func NewPatchUserForbidden() *PatchUserForbidden {
 
 /*PatchUserForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type PatchUserForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *PatchUserForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserForbidden ", 403)
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchUserForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *PatchUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewPatchUserNotFound() *PatchUserNotFound {
 
 /*PatchUserNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type PatchUserNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *PatchUserNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserNotFound ", 404)
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchUserNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *PatchUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUserUnprocessableEntity creates a PatchUserUnprocessableEntity with default headers values
+func NewPatchUserUnprocessableEntity() *PatchUserUnprocessableEntity {
+	return &PatchUserUnprocessableEntity{}
+}
+
+/*PatchUserUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type PatchUserUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchUserUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *PatchUserUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchUserUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUserInternalServerError creates a PatchUserInternalServerError with default headers values
+func NewPatchUserInternalServerError() *PatchUserInternalServerError {
+	return &PatchUserInternalServerError{}
+}
+
+/*PatchUserInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchUserInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchUserInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/users/{user}][%d] patchUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchUserInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

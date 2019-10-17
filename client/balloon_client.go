@@ -11,10 +11,10 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/gyselroth/balloon-sdk-go/client/ballon_app_elasticsearch_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/convert_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/core_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/desktopclient_v2"
+	"github.com/gyselroth/balloon-sdk-go/client/elasticsearch_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/notification_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/preview_v2"
 	"github.com/gyselroth/balloon-sdk-go/client/sharelink_v2"
@@ -64,13 +64,13 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Balloon {
 	cli := new(Balloon)
 	cli.Transport = transport
 
-	cli.BallonAppElasticsearchV2 = ballon_app_elasticsearch_v2.New(transport, formats)
-
 	cli.ConvertV2 = convert_v2.New(transport, formats)
 
 	cli.CoreV2 = core_v2.New(transport, formats)
 
 	cli.DesktopclientV2 = desktopclient_v2.New(transport, formats)
+
+	cli.ElasticsearchV2 = elasticsearch_v2.New(transport, formats)
 
 	cli.NotificationV2 = notification_v2.New(transport, formats)
 
@@ -124,13 +124,13 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Balloon is a client for balloon
 type Balloon struct {
-	BallonAppElasticsearchV2 *ballon_app_elasticsearch_v2.Client
-
 	ConvertV2 *convert_v2.Client
 
 	CoreV2 *core_v2.Client
 
 	DesktopclientV2 *desktopclient_v2.Client
+
+	ElasticsearchV2 *elasticsearch_v2.Client
 
 	NotificationV2 *notification_v2.Client
 
@@ -147,13 +147,13 @@ type Balloon struct {
 func (c *Balloon) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
-	c.BallonAppElasticsearchV2.SetTransport(transport)
-
 	c.ConvertV2.SetTransport(transport)
 
 	c.CoreV2.SetTransport(transport)
 
 	c.DesktopclientV2.SetTransport(transport)
+
+	c.ElasticsearchV2.SetTransport(transport)
 
 	c.NotificationV2.SetTransport(transport)
 
