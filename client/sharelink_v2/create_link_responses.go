@@ -30,6 +30,18 @@ func (o *CreateLinkReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateLinkBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewCreateLinkUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewCreateLinkForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *CreateLinkReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewCreateLinkNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewCreateLinkUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateLinkInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *CreateLinkCreated) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
+// NewCreateLinkBadRequest creates a CreateLinkBadRequest with default headers values
+func NewCreateLinkBadRequest() *CreateLinkBadRequest {
+	return &CreateLinkBadRequest{}
+}
+
+/*CreateLinkBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type CreateLinkBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateLinkBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateLinkBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateLinkUnauthorized creates a CreateLinkUnauthorized with default headers values
+func NewCreateLinkUnauthorized() *CreateLinkUnauthorized {
+	return &CreateLinkUnauthorized{}
+}
+
+/*CreateLinkUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type CreateLinkUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateLinkUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CreateLinkUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewCreateLinkForbidden creates a CreateLinkForbidden with default headers values
 func NewCreateLinkForbidden() *CreateLinkForbidden {
 	return &CreateLinkForbidden{}
@@ -88,16 +178,28 @@ func NewCreateLinkForbidden() *CreateLinkForbidden {
 
 /*CreateLinkForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type CreateLinkForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CreateLinkForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkForbidden  %+v", 403, o.Payload)
+}
+
+func (o *CreateLinkForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CreateLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewCreateLinkNotFound() *CreateLinkNotFound {
 
 /*CreateLinkNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type CreateLinkNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CreateLinkNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CreateLinkNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CreateLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateLinkUnprocessableEntity creates a CreateLinkUnprocessableEntity with default headers values
+func NewCreateLinkUnprocessableEntity() *CreateLinkUnprocessableEntity {
+	return &CreateLinkUnprocessableEntity{}
+}
+
+/*CreateLinkUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type CreateLinkUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateLinkUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateLinkUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateLinkUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateLinkInternalServerError creates a CreateLinkInternalServerError with default headers values
+func NewCreateLinkInternalServerError() *CreateLinkInternalServerError {
+	return &CreateLinkInternalServerError{}
+}
+
+/*CreateLinkInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type CreateLinkInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateLinkInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/share-link][%d] createLinkInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CreateLinkInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -7,10 +7,13 @@ package wopi_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // UpdateWopiDocuemntContentReader is a Reader for the UpdateWopiDocuemntContent structure.
@@ -27,6 +30,18 @@ func (o *UpdateWopiDocuemntContentReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewUpdateWopiDocuemntContentBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewUpdateWopiDocuemntContentUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewUpdateWopiDocuemntContentForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -35,6 +50,18 @@ func (o *UpdateWopiDocuemntContentReader) ReadResponse(response runtime.ClientRe
 		return nil, result
 	case 404:
 		result := NewUpdateWopiDocuemntContentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewUpdateWopiDocuemntContentUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUpdateWopiDocuemntContentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -66,6 +93,72 @@ func (o *UpdateWopiDocuemntContentOK) readResponse(response runtime.ClientRespon
 	return nil
 }
 
+// NewUpdateWopiDocuemntContentBadRequest creates a UpdateWopiDocuemntContentBadRequest with default headers values
+func NewUpdateWopiDocuemntContentBadRequest() *UpdateWopiDocuemntContentBadRequest {
+	return &UpdateWopiDocuemntContentBadRequest{}
+}
+
+/*UpdateWopiDocuemntContentBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type UpdateWopiDocuemntContentBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateWopiDocuemntContentBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateWopiDocuemntContentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateWopiDocuemntContentUnauthorized creates a UpdateWopiDocuemntContentUnauthorized with default headers values
+func NewUpdateWopiDocuemntContentUnauthorized() *UpdateWopiDocuemntContentUnauthorized {
+	return &UpdateWopiDocuemntContentUnauthorized{}
+}
+
+/*UpdateWopiDocuemntContentUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type UpdateWopiDocuemntContentUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateWopiDocuemntContentUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateWopiDocuemntContentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewUpdateWopiDocuemntContentForbidden creates a UpdateWopiDocuemntContentForbidden with default headers values
 func NewUpdateWopiDocuemntContentForbidden() *UpdateWopiDocuemntContentForbidden {
 	return &UpdateWopiDocuemntContentForbidden{}
@@ -73,16 +166,28 @@ func NewUpdateWopiDocuemntContentForbidden() *UpdateWopiDocuemntContentForbidden
 
 /*UpdateWopiDocuemntContentForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type UpdateWopiDocuemntContentForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UpdateWopiDocuemntContentForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentForbidden  %+v", 403, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UpdateWopiDocuemntContentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -94,16 +199,94 @@ func NewUpdateWopiDocuemntContentNotFound() *UpdateWopiDocuemntContentNotFound {
 
 /*UpdateWopiDocuemntContentNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type UpdateWopiDocuemntContentNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UpdateWopiDocuemntContentNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UpdateWopiDocuemntContentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateWopiDocuemntContentUnprocessableEntity creates a UpdateWopiDocuemntContentUnprocessableEntity with default headers values
+func NewUpdateWopiDocuemntContentUnprocessableEntity() *UpdateWopiDocuemntContentUnprocessableEntity {
+	return &UpdateWopiDocuemntContentUnprocessableEntity{}
+}
+
+/*UpdateWopiDocuemntContentUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type UpdateWopiDocuemntContentUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateWopiDocuemntContentUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateWopiDocuemntContentUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateWopiDocuemntContentInternalServerError creates a UpdateWopiDocuemntContentInternalServerError with default headers values
+func NewUpdateWopiDocuemntContentInternalServerError() *UpdateWopiDocuemntContentInternalServerError {
+	return &UpdateWopiDocuemntContentInternalServerError{}
+}
+
+/*UpdateWopiDocuemntContentInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type UpdateWopiDocuemntContentInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateWopiDocuemntContentInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/wopi/document/{document}/contents][%d] updateWopiDocuemntContentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UpdateWopiDocuemntContentInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateWopiDocuemntContentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

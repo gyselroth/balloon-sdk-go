@@ -30,6 +30,18 @@ func (o *RollbackFileReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewRollbackFileBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewRollbackFileUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewRollbackFileForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *RollbackFileReader) ReadResponse(response runtime.ClientResponse, consu
 		return nil, result
 	case 404:
 		result := NewRollbackFileNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewRollbackFileUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewRollbackFileInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *RollbackFileOK) readResponse(response runtime.ClientResponse, consumer 
 	return nil
 }
 
+// NewRollbackFileBadRequest creates a RollbackFileBadRequest with default headers values
+func NewRollbackFileBadRequest() *RollbackFileBadRequest {
+	return &RollbackFileBadRequest{}
+}
+
+/*RollbackFileBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type RollbackFileBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *RollbackFileBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *RollbackFileBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *RollbackFileBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRollbackFileUnauthorized creates a RollbackFileUnauthorized with default headers values
+func NewRollbackFileUnauthorized() *RollbackFileUnauthorized {
+	return &RollbackFileUnauthorized{}
+}
+
+/*RollbackFileUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type RollbackFileUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *RollbackFileUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *RollbackFileUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *RollbackFileUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewRollbackFileForbidden creates a RollbackFileForbidden with default headers values
 func NewRollbackFileForbidden() *RollbackFileForbidden {
 	return &RollbackFileForbidden{}
@@ -88,16 +178,28 @@ func NewRollbackFileForbidden() *RollbackFileForbidden {
 
 /*RollbackFileForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type RollbackFileForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *RollbackFileForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileForbidden  %+v", 403, o.Payload)
+}
+
+func (o *RollbackFileForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *RollbackFileForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewRollbackFileNotFound() *RollbackFileNotFound {
 
 /*RollbackFileNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type RollbackFileNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *RollbackFileNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RollbackFileNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *RollbackFileNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRollbackFileUnprocessableEntity creates a RollbackFileUnprocessableEntity with default headers values
+func NewRollbackFileUnprocessableEntity() *RollbackFileUnprocessableEntity {
+	return &RollbackFileUnprocessableEntity{}
+}
+
+/*RollbackFileUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type RollbackFileUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *RollbackFileUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *RollbackFileUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *RollbackFileUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRollbackFileInternalServerError creates a RollbackFileInternalServerError with default headers values
+func NewRollbackFileInternalServerError() *RollbackFileInternalServerError {
+	return &RollbackFileInternalServerError{}
+}
+
+/*RollbackFileInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type RollbackFileInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *RollbackFileInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/files/{file}/restore][%d] rollbackFileInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *RollbackFileInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *RollbackFileInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

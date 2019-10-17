@@ -30,6 +30,42 @@ func (o *QueryElasticsearchReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewQueryElasticsearchBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewQueryElasticsearchUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewQueryElasticsearchForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewQueryElasticsearchNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewQueryElasticsearchUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewQueryElasticsearchInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +96,204 @@ func (o *QueryElasticsearchOK) GetPayload() *models.CoreV2Nodes {
 func (o *QueryElasticsearchOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2Nodes)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchBadRequest creates a QueryElasticsearchBadRequest with default headers values
+func NewQueryElasticsearchBadRequest() *QueryElasticsearchBadRequest {
+	return &QueryElasticsearchBadRequest{}
+}
+
+/*QueryElasticsearchBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type QueryElasticsearchBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *QueryElasticsearchBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchUnauthorized creates a QueryElasticsearchUnauthorized with default headers values
+func NewQueryElasticsearchUnauthorized() *QueryElasticsearchUnauthorized {
+	return &QueryElasticsearchUnauthorized{}
+}
+
+/*QueryElasticsearchUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type QueryElasticsearchUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *QueryElasticsearchUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchForbidden creates a QueryElasticsearchForbidden with default headers values
+func NewQueryElasticsearchForbidden() *QueryElasticsearchForbidden {
+	return &QueryElasticsearchForbidden{}
+}
+
+/*QueryElasticsearchForbidden handles this case with default header values.
+
+Forbidden
+*/
+type QueryElasticsearchForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchForbidden) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchForbidden  %+v", 403, o.Payload)
+}
+
+func (o *QueryElasticsearchForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchNotFound creates a QueryElasticsearchNotFound with default headers values
+func NewQueryElasticsearchNotFound() *QueryElasticsearchNotFound {
+	return &QueryElasticsearchNotFound{}
+}
+
+/*QueryElasticsearchNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type QueryElasticsearchNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchNotFound) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchNotFound  %+v", 404, o.Payload)
+}
+
+func (o *QueryElasticsearchNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchUnprocessableEntity creates a QueryElasticsearchUnprocessableEntity with default headers values
+func NewQueryElasticsearchUnprocessableEntity() *QueryElasticsearchUnprocessableEntity {
+	return &QueryElasticsearchUnprocessableEntity{}
+}
+
+/*QueryElasticsearchUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type QueryElasticsearchUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *QueryElasticsearchUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewQueryElasticsearchInternalServerError creates a QueryElasticsearchInternalServerError with default headers values
+func NewQueryElasticsearchInternalServerError() *QueryElasticsearchInternalServerError {
+	return &QueryElasticsearchInternalServerError{}
+}
+
+/*QueryElasticsearchInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type QueryElasticsearchInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *QueryElasticsearchInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/search][%d] queryElasticsearchInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *QueryElasticsearchInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *QueryElasticsearchInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

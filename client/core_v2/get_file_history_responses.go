@@ -30,6 +30,18 @@ func (o *GetFileHistoryReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetFileHistoryBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetFileHistoryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetFileHistoryForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetFileHistoryReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 	case 404:
 		result := NewGetFileHistoryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetFileHistoryUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetFileHistoryInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetFileHistoryOK) readResponse(response runtime.ClientResponse, consume
 	return nil
 }
 
+// NewGetFileHistoryBadRequest creates a GetFileHistoryBadRequest with default headers values
+func NewGetFileHistoryBadRequest() *GetFileHistoryBadRequest {
+	return &GetFileHistoryBadRequest{}
+}
+
+/*GetFileHistoryBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetFileHistoryBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFileHistoryBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetFileHistoryBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFileHistoryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFileHistoryUnauthorized creates a GetFileHistoryUnauthorized with default headers values
+func NewGetFileHistoryUnauthorized() *GetFileHistoryUnauthorized {
+	return &GetFileHistoryUnauthorized{}
+}
+
+/*GetFileHistoryUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetFileHistoryUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFileHistoryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetFileHistoryUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFileHistoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetFileHistoryForbidden creates a GetFileHistoryForbidden with default headers values
 func NewGetFileHistoryForbidden() *GetFileHistoryForbidden {
 	return &GetFileHistoryForbidden{}
@@ -88,16 +178,28 @@ func NewGetFileHistoryForbidden() *GetFileHistoryForbidden {
 
 /*GetFileHistoryForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetFileHistoryForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetFileHistoryForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetFileHistoryForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetFileHistoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetFileHistoryNotFound() *GetFileHistoryNotFound {
 
 /*GetFileHistoryNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetFileHistoryNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetFileHistoryNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetFileHistoryNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetFileHistoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFileHistoryUnprocessableEntity creates a GetFileHistoryUnprocessableEntity with default headers values
+func NewGetFileHistoryUnprocessableEntity() *GetFileHistoryUnprocessableEntity {
+	return &GetFileHistoryUnprocessableEntity{}
+}
+
+/*GetFileHistoryUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetFileHistoryUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFileHistoryUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetFileHistoryUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFileHistoryUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFileHistoryInternalServerError creates a GetFileHistoryInternalServerError with default headers values
+func NewGetFileHistoryInternalServerError() *GetFileHistoryInternalServerError {
+	return &GetFileHistoryInternalServerError{}
+}
+
+/*GetFileHistoryInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetFileHistoryInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFileHistoryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/history][%d] getFileHistoryInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetFileHistoryInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFileHistoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

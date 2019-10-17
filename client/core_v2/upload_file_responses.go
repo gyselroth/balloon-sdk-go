@@ -30,6 +30,18 @@ func (o *UploadFileReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewUploadFileBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewUploadFileUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewUploadFileForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *UploadFileReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewUploadFileNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewUploadFileUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUploadFileInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *UploadFileCreated) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
+// NewUploadFileBadRequest creates a UploadFileBadRequest with default headers values
+func NewUploadFileBadRequest() *UploadFileBadRequest {
+	return &UploadFileBadRequest{}
+}
+
+/*UploadFileBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type UploadFileBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadFileBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UploadFileBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadFileBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadFileUnauthorized creates a UploadFileUnauthorized with default headers values
+func NewUploadFileUnauthorized() *UploadFileUnauthorized {
+	return &UploadFileUnauthorized{}
+}
+
+/*UploadFileUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type UploadFileUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadFileUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UploadFileUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadFileUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewUploadFileForbidden creates a UploadFileForbidden with default headers values
 func NewUploadFileForbidden() *UploadFileForbidden {
 	return &UploadFileForbidden{}
@@ -88,16 +178,28 @@ func NewUploadFileForbidden() *UploadFileForbidden {
 
 /*UploadFileForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type UploadFileForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UploadFileForbidden) Error() string {
-	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileForbidden ", 403)
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileForbidden  %+v", 403, o.Payload)
+}
+
+func (o *UploadFileForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UploadFileForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewUploadFileNotFound() *UploadFileNotFound {
 
 /*UploadFileNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type UploadFileNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UploadFileNotFound) Error() string {
-	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileNotFound ", 404)
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UploadFileNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UploadFileNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadFileUnprocessableEntity creates a UploadFileUnprocessableEntity with default headers values
+func NewUploadFileUnprocessableEntity() *UploadFileUnprocessableEntity {
+	return &UploadFileUnprocessableEntity{}
+}
+
+/*UploadFileUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type UploadFileUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadFileUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UploadFileUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadFileUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadFileInternalServerError creates a UploadFileInternalServerError with default headers values
+func NewUploadFileInternalServerError() *UploadFileInternalServerError {
+	return &UploadFileInternalServerError{}
+}
+
+/*UploadFileInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type UploadFileInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadFileInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files][%d] uploadFileInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UploadFileInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadFileInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

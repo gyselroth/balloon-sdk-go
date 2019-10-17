@@ -7,10 +7,13 @@ package notification_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // DeleteNotificationReader is a Reader for the DeleteNotification structure.
@@ -27,6 +30,18 @@ func (o *DeleteNotificationReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteNotificationBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteNotificationUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewDeleteNotificationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -35,6 +50,18 @@ func (o *DeleteNotificationReader) ReadResponse(response runtime.ClientResponse,
 		return nil, result
 	case 404:
 		result := NewDeleteNotificationNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewDeleteNotificationUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteNotificationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -66,6 +93,72 @@ func (o *DeleteNotificationNoContent) readResponse(response runtime.ClientRespon
 	return nil
 }
 
+// NewDeleteNotificationBadRequest creates a DeleteNotificationBadRequest with default headers values
+func NewDeleteNotificationBadRequest() *DeleteNotificationBadRequest {
+	return &DeleteNotificationBadRequest{}
+}
+
+/*DeleteNotificationBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type DeleteNotificationBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteNotificationBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteNotificationBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteNotificationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteNotificationUnauthorized creates a DeleteNotificationUnauthorized with default headers values
+func NewDeleteNotificationUnauthorized() *DeleteNotificationUnauthorized {
+	return &DeleteNotificationUnauthorized{}
+}
+
+/*DeleteNotificationUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteNotificationUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteNotificationUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteNotificationUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteNotificationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewDeleteNotificationForbidden creates a DeleteNotificationForbidden with default headers values
 func NewDeleteNotificationForbidden() *DeleteNotificationForbidden {
 	return &DeleteNotificationForbidden{}
@@ -73,16 +166,28 @@ func NewDeleteNotificationForbidden() *DeleteNotificationForbidden {
 
 /*DeleteNotificationForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type DeleteNotificationForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteNotificationForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationForbidden ", 403)
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteNotificationForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteNotificationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -94,16 +199,94 @@ func NewDeleteNotificationNotFound() *DeleteNotificationNotFound {
 
 /*DeleteNotificationNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type DeleteNotificationNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteNotificationNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationNotFound ", 404)
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteNotificationNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteNotificationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteNotificationUnprocessableEntity creates a DeleteNotificationUnprocessableEntity with default headers values
+func NewDeleteNotificationUnprocessableEntity() *DeleteNotificationUnprocessableEntity {
+	return &DeleteNotificationUnprocessableEntity{}
+}
+
+/*DeleteNotificationUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteNotificationUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteNotificationUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *DeleteNotificationUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteNotificationUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteNotificationInternalServerError creates a DeleteNotificationInternalServerError with default headers values
+func NewDeleteNotificationInternalServerError() *DeleteNotificationInternalServerError {
+	return &DeleteNotificationInternalServerError{}
+}
+
+/*DeleteNotificationInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteNotificationInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteNotificationInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/notifications/{notification}][%d] deleteNotificationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteNotificationInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteNotificationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

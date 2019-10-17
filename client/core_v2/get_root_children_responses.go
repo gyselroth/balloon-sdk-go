@@ -30,6 +30,18 @@ func (o *GetRootChildrenReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetRootChildrenBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetRootChildrenUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetRootChildrenForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetRootChildrenReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 	case 404:
 		result := NewGetRootChildrenNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetRootChildrenUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetRootChildrenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetRootChildrenOK) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
+// NewGetRootChildrenBadRequest creates a GetRootChildrenBadRequest with default headers values
+func NewGetRootChildrenBadRequest() *GetRootChildrenBadRequest {
+	return &GetRootChildrenBadRequest{}
+}
+
+/*GetRootChildrenBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetRootChildrenBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetRootChildrenBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetRootChildrenBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetRootChildrenBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRootChildrenUnauthorized creates a GetRootChildrenUnauthorized with default headers values
+func NewGetRootChildrenUnauthorized() *GetRootChildrenUnauthorized {
+	return &GetRootChildrenUnauthorized{}
+}
+
+/*GetRootChildrenUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetRootChildrenUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetRootChildrenUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetRootChildrenUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetRootChildrenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetRootChildrenForbidden creates a GetRootChildrenForbidden with default headers values
 func NewGetRootChildrenForbidden() *GetRootChildrenForbidden {
 	return &GetRootChildrenForbidden{}
@@ -88,16 +178,28 @@ func NewGetRootChildrenForbidden() *GetRootChildrenForbidden {
 
 /*GetRootChildrenForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetRootChildrenForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetRootChildrenForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetRootChildrenForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetRootChildrenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetRootChildrenNotFound() *GetRootChildrenNotFound {
 
 /*GetRootChildrenNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetRootChildrenNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetRootChildrenNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetRootChildrenNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetRootChildrenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRootChildrenUnprocessableEntity creates a GetRootChildrenUnprocessableEntity with default headers values
+func NewGetRootChildrenUnprocessableEntity() *GetRootChildrenUnprocessableEntity {
+	return &GetRootChildrenUnprocessableEntity{}
+}
+
+/*GetRootChildrenUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetRootChildrenUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetRootChildrenUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetRootChildrenUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetRootChildrenUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRootChildrenInternalServerError creates a GetRootChildrenInternalServerError with default headers values
+func NewGetRootChildrenInternalServerError() *GetRootChildrenInternalServerError {
+	return &GetRootChildrenInternalServerError{}
+}
+
+/*GetRootChildrenInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetRootChildrenInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetRootChildrenInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/children][%d] getRootChildrenInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetRootChildrenInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetRootChildrenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

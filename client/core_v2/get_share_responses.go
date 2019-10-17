@@ -30,6 +30,18 @@ func (o *GetShareReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetShareBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetShareUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetShareForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetShareReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 	case 404:
 		result := NewGetShareNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetShareUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetShareInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetShareOK) readResponse(response runtime.ClientResponse, consumer runt
 	return nil
 }
 
+// NewGetShareBadRequest creates a GetShareBadRequest with default headers values
+func NewGetShareBadRequest() *GetShareBadRequest {
+	return &GetShareBadRequest{}
+}
+
+/*GetShareBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetShareBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetShareBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetShareBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetShareBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareUnauthorized creates a GetShareUnauthorized with default headers values
+func NewGetShareUnauthorized() *GetShareUnauthorized {
+	return &GetShareUnauthorized{}
+}
+
+/*GetShareUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetShareUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetShareUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetShareUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetShareUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetShareForbidden creates a GetShareForbidden with default headers values
 func NewGetShareForbidden() *GetShareForbidden {
 	return &GetShareForbidden{}
@@ -88,16 +178,28 @@ func NewGetShareForbidden() *GetShareForbidden {
 
 /*GetShareForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetShareForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetShareForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetShareForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetShareForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetShareNotFound() *GetShareNotFound {
 
 /*GetShareNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetShareNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetShareNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetShareNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetShareNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareUnprocessableEntity creates a GetShareUnprocessableEntity with default headers values
+func NewGetShareUnprocessableEntity() *GetShareUnprocessableEntity {
+	return &GetShareUnprocessableEntity{}
+}
+
+/*GetShareUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetShareUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetShareUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetShareUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetShareUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetShareInternalServerError creates a GetShareInternalServerError with default headers values
+func NewGetShareInternalServerError() *GetShareInternalServerError {
+	return &GetShareInternalServerError{}
+}
+
+/*GetShareInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetShareInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetShareInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections/{collection}/share][%d] getShareInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetShareInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetShareInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

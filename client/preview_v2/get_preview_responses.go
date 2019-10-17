@@ -7,10 +7,13 @@ package preview_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // GetPreviewReader is a Reader for the GetPreview structure.
@@ -27,6 +30,18 @@ func (o *GetPreviewReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetPreviewBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetPreviewUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetPreviewForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -35,6 +50,18 @@ func (o *GetPreviewReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewGetPreviewNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetPreviewUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetPreviewInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -66,6 +93,72 @@ func (o *GetPreviewOK) readResponse(response runtime.ClientResponse, consumer ru
 	return nil
 }
 
+// NewGetPreviewBadRequest creates a GetPreviewBadRequest with default headers values
+func NewGetPreviewBadRequest() *GetPreviewBadRequest {
+	return &GetPreviewBadRequest{}
+}
+
+/*GetPreviewBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetPreviewBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetPreviewBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetPreviewBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetPreviewBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPreviewUnauthorized creates a GetPreviewUnauthorized with default headers values
+func NewGetPreviewUnauthorized() *GetPreviewUnauthorized {
+	return &GetPreviewUnauthorized{}
+}
+
+/*GetPreviewUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetPreviewUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetPreviewUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPreviewUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetPreviewUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetPreviewForbidden creates a GetPreviewForbidden with default headers values
 func NewGetPreviewForbidden() *GetPreviewForbidden {
 	return &GetPreviewForbidden{}
@@ -73,16 +166,28 @@ func NewGetPreviewForbidden() *GetPreviewForbidden {
 
 /*GetPreviewForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetPreviewForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetPreviewForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetPreviewForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetPreviewForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -94,16 +199,94 @@ func NewGetPreviewNotFound() *GetPreviewNotFound {
 
 /*GetPreviewNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetPreviewNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetPreviewNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPreviewNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetPreviewNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPreviewUnprocessableEntity creates a GetPreviewUnprocessableEntity with default headers values
+func NewGetPreviewUnprocessableEntity() *GetPreviewUnprocessableEntity {
+	return &GetPreviewUnprocessableEntity{}
+}
+
+/*GetPreviewUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetPreviewUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetPreviewUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetPreviewUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetPreviewUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPreviewInternalServerError creates a GetPreviewInternalServerError with default headers values
+func NewGetPreviewInternalServerError() *GetPreviewInternalServerError {
+	return &GetPreviewInternalServerError{}
+}
+
+/*GetPreviewInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetPreviewInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetPreviewInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/preview][%d] getPreviewInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetPreviewInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetPreviewInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

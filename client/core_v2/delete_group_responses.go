@@ -7,10 +7,13 @@ package core_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // DeleteGroupReader is a Reader for the DeleteGroup structure.
@@ -27,6 +30,18 @@ func (o *DeleteGroupReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteGroupBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteGroupUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewDeleteGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -35,6 +50,18 @@ func (o *DeleteGroupReader) ReadResponse(response runtime.ClientResponse, consum
 		return nil, result
 	case 404:
 		result := NewDeleteGroupNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewDeleteGroupUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteGroupInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -66,6 +93,72 @@ func (o *DeleteGroupNoContent) readResponse(response runtime.ClientResponse, con
 	return nil
 }
 
+// NewDeleteGroupBadRequest creates a DeleteGroupBadRequest with default headers values
+func NewDeleteGroupBadRequest() *DeleteGroupBadRequest {
+	return &DeleteGroupBadRequest{}
+}
+
+/*DeleteGroupBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type DeleteGroupBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteGroupBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteGroupBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteGroupUnauthorized creates a DeleteGroupUnauthorized with default headers values
+func NewDeleteGroupUnauthorized() *DeleteGroupUnauthorized {
+	return &DeleteGroupUnauthorized{}
+}
+
+/*DeleteGroupUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteGroupUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteGroupUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteGroupUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteGroupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewDeleteGroupForbidden creates a DeleteGroupForbidden with default headers values
 func NewDeleteGroupForbidden() *DeleteGroupForbidden {
 	return &DeleteGroupForbidden{}
@@ -73,16 +166,28 @@ func NewDeleteGroupForbidden() *DeleteGroupForbidden {
 
 /*DeleteGroupForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type DeleteGroupForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteGroupForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupForbidden ", 403)
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteGroupForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteGroupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -94,16 +199,94 @@ func NewDeleteGroupNotFound() *DeleteGroupNotFound {
 
 /*DeleteGroupNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type DeleteGroupNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteGroupNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupNotFound ", 404)
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteGroupNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteGroupUnprocessableEntity creates a DeleteGroupUnprocessableEntity with default headers values
+func NewDeleteGroupUnprocessableEntity() *DeleteGroupUnprocessableEntity {
+	return &DeleteGroupUnprocessableEntity{}
+}
+
+/*DeleteGroupUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteGroupUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteGroupUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *DeleteGroupUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteGroupUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteGroupInternalServerError creates a DeleteGroupInternalServerError with default headers values
+func NewDeleteGroupInternalServerError() *DeleteGroupInternalServerError {
+	return &DeleteGroupInternalServerError{}
+}
+
+/*DeleteGroupInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteGroupInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteGroupInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/groups/{group}][%d] deleteGroupInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteGroupInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteGroupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

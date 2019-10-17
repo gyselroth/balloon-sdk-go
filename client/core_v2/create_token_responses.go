@@ -30,6 +30,42 @@ func (o *CreateTokenReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateTokenBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewCreateTokenUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewCreateTokenForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewCreateTokenNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewCreateTokenUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateTokenInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +96,204 @@ func (o *CreateTokenOK) GetPayload() *models.CoreV2OAuth2Token {
 func (o *CreateTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2OAuth2Token)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenBadRequest creates a CreateTokenBadRequest with default headers values
+func NewCreateTokenBadRequest() *CreateTokenBadRequest {
+	return &CreateTokenBadRequest{}
+}
+
+/*CreateTokenBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type CreateTokenBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateTokenBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenUnauthorized creates a CreateTokenUnauthorized with default headers values
+func NewCreateTokenUnauthorized() *CreateTokenUnauthorized {
+	return &CreateTokenUnauthorized{}
+}
+
+/*CreateTokenUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type CreateTokenUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CreateTokenUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenForbidden creates a CreateTokenForbidden with default headers values
+func NewCreateTokenForbidden() *CreateTokenForbidden {
+	return &CreateTokenForbidden{}
+}
+
+/*CreateTokenForbidden handles this case with default header values.
+
+Forbidden
+*/
+type CreateTokenForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenForbidden) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenForbidden  %+v", 403, o.Payload)
+}
+
+func (o *CreateTokenForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenNotFound creates a CreateTokenNotFound with default headers values
+func NewCreateTokenNotFound() *CreateTokenNotFound {
+	return &CreateTokenNotFound{}
+}
+
+/*CreateTokenNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type CreateTokenNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenNotFound) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CreateTokenNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenUnprocessableEntity creates a CreateTokenUnprocessableEntity with default headers values
+func NewCreateTokenUnprocessableEntity() *CreateTokenUnprocessableEntity {
+	return &CreateTokenUnprocessableEntity{}
+}
+
+/*CreateTokenUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type CreateTokenUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateTokenUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTokenInternalServerError creates a CreateTokenInternalServerError with default headers values
+func NewCreateTokenInternalServerError() *CreateTokenInternalServerError {
+	return &CreateTokenInternalServerError{}
+}
+
+/*CreateTokenInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type CreateTokenInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateTokenInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/tokens][%d] createTokenInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CreateTokenInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

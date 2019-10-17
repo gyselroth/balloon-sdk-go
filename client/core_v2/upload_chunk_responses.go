@@ -42,6 +42,18 @@ func (o *UploadChunkReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewUploadChunkBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewUploadChunkUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewUploadChunkForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -50,6 +62,18 @@ func (o *UploadChunkReader) ReadResponse(response runtime.ClientResponse, consum
 		return nil, result
 	case 404:
 		result := NewUploadChunkNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewUploadChunkUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUploadChunkInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -159,6 +183,72 @@ func (o *UploadChunkPartialContent) readResponse(response runtime.ClientResponse
 	return nil
 }
 
+// NewUploadChunkBadRequest creates a UploadChunkBadRequest with default headers values
+func NewUploadChunkBadRequest() *UploadChunkBadRequest {
+	return &UploadChunkBadRequest{}
+}
+
+/*UploadChunkBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type UploadChunkBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadChunkBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UploadChunkBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadChunkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadChunkUnauthorized creates a UploadChunkUnauthorized with default headers values
+func NewUploadChunkUnauthorized() *UploadChunkUnauthorized {
+	return &UploadChunkUnauthorized{}
+}
+
+/*UploadChunkUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type UploadChunkUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadChunkUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UploadChunkUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadChunkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewUploadChunkForbidden creates a UploadChunkForbidden with default headers values
 func NewUploadChunkForbidden() *UploadChunkForbidden {
 	return &UploadChunkForbidden{}
@@ -166,16 +256,28 @@ func NewUploadChunkForbidden() *UploadChunkForbidden {
 
 /*UploadChunkForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type UploadChunkForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UploadChunkForbidden) Error() string {
-	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkForbidden ", 403)
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkForbidden  %+v", 403, o.Payload)
+}
+
+func (o *UploadChunkForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UploadChunkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -187,16 +289,94 @@ func NewUploadChunkNotFound() *UploadChunkNotFound {
 
 /*UploadChunkNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type UploadChunkNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UploadChunkNotFound) Error() string {
-	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkNotFound ", 404)
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UploadChunkNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UploadChunkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadChunkUnprocessableEntity creates a UploadChunkUnprocessableEntity with default headers values
+func NewUploadChunkUnprocessableEntity() *UploadChunkUnprocessableEntity {
+	return &UploadChunkUnprocessableEntity{}
+}
+
+/*UploadChunkUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type UploadChunkUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadChunkUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UploadChunkUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadChunkUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUploadChunkInternalServerError creates a UploadChunkInternalServerError with default headers values
+func NewUploadChunkInternalServerError() *UploadChunkInternalServerError {
+	return &UploadChunkInternalServerError{}
+}
+
+/*UploadChunkInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type UploadChunkInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UploadChunkInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /api/v2/files/chunk][%d] uploadChunkInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UploadChunkInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UploadChunkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

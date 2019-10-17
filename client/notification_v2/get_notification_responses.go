@@ -30,6 +30,18 @@ func (o *GetNotificationReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetNotificationBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetNotificationUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetNotificationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetNotificationReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 	case 404:
 		result := NewGetNotificationNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetNotificationUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetNotificationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetNotificationOK) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
+// NewGetNotificationBadRequest creates a GetNotificationBadRequest with default headers values
+func NewGetNotificationBadRequest() *GetNotificationBadRequest {
+	return &GetNotificationBadRequest{}
+}
+
+/*GetNotificationBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetNotificationBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNotificationBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetNotificationBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNotificationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNotificationUnauthorized creates a GetNotificationUnauthorized with default headers values
+func NewGetNotificationUnauthorized() *GetNotificationUnauthorized {
+	return &GetNotificationUnauthorized{}
+}
+
+/*GetNotificationUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetNotificationUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNotificationUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetNotificationUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNotificationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetNotificationForbidden creates a GetNotificationForbidden with default headers values
 func NewGetNotificationForbidden() *GetNotificationForbidden {
 	return &GetNotificationForbidden{}
@@ -88,16 +178,28 @@ func NewGetNotificationForbidden() *GetNotificationForbidden {
 
 /*GetNotificationForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetNotificationForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNotificationForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetNotificationForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNotificationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetNotificationNotFound() *GetNotificationNotFound {
 
 /*GetNotificationNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetNotificationNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNotificationNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetNotificationNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNotificationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNotificationUnprocessableEntity creates a GetNotificationUnprocessableEntity with default headers values
+func NewGetNotificationUnprocessableEntity() *GetNotificationUnprocessableEntity {
+	return &GetNotificationUnprocessableEntity{}
+}
+
+/*GetNotificationUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetNotificationUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNotificationUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetNotificationUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNotificationUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNotificationInternalServerError creates a GetNotificationInternalServerError with default headers values
+func NewGetNotificationInternalServerError() *GetNotificationInternalServerError {
+	return &GetNotificationInternalServerError{}
+}
+
+/*GetNotificationInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetNotificationInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNotificationInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/notifications/{notification}][%d] getNotificationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetNotificationInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNotificationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

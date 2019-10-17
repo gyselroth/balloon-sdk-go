@@ -12,6 +12,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // GetContentReader is a Reader for the GetContent structure.
@@ -29,6 +31,18 @@ func (o *GetContentReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetContentBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetContentUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetContentForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -37,6 +51,18 @@ func (o *GetContentReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewGetContentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetContentUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetContentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -80,6 +106,72 @@ func (o *GetContentOK) readResponse(response runtime.ClientResponse, consumer ru
 	return nil
 }
 
+// NewGetContentBadRequest creates a GetContentBadRequest with default headers values
+func NewGetContentBadRequest() *GetContentBadRequest {
+	return &GetContentBadRequest{}
+}
+
+/*GetContentBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetContentBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetContentBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetContentBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetContentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetContentUnauthorized creates a GetContentUnauthorized with default headers values
+func NewGetContentUnauthorized() *GetContentUnauthorized {
+	return &GetContentUnauthorized{}
+}
+
+/*GetContentUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetContentUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetContentUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetContentUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetContentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetContentForbidden creates a GetContentForbidden with default headers values
 func NewGetContentForbidden() *GetContentForbidden {
 	return &GetContentForbidden{}
@@ -87,16 +179,28 @@ func NewGetContentForbidden() *GetContentForbidden {
 
 /*GetContentForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetContentForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetContentForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetContentForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetContentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -108,16 +212,94 @@ func NewGetContentNotFound() *GetContentNotFound {
 
 /*GetContentNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetContentNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetContentNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetContentNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetContentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetContentUnprocessableEntity creates a GetContentUnprocessableEntity with default headers values
+func NewGetContentUnprocessableEntity() *GetContentUnprocessableEntity {
+	return &GetContentUnprocessableEntity{}
+}
+
+/*GetContentUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetContentUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetContentUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetContentUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetContentUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetContentInternalServerError creates a GetContentInternalServerError with default headers values
+func NewGetContentInternalServerError() *GetContentInternalServerError {
+	return &GetContentInternalServerError{}
+}
+
+/*GetContentInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetContentInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetContentInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/content][%d] getContentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetContentInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetContentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

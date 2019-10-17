@@ -30,6 +30,18 @@ func (o *GetCollectionsReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetCollectionsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetCollectionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetCollectionsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetCollectionsReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 	case 404:
 		result := NewGetCollectionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetCollectionsUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetCollectionsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetCollectionsOK) readResponse(response runtime.ClientResponse, consume
 	return nil
 }
 
+// NewGetCollectionsBadRequest creates a GetCollectionsBadRequest with default headers values
+func NewGetCollectionsBadRequest() *GetCollectionsBadRequest {
+	return &GetCollectionsBadRequest{}
+}
+
+/*GetCollectionsBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetCollectionsBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCollectionsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetCollectionsBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCollectionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCollectionsUnauthorized creates a GetCollectionsUnauthorized with default headers values
+func NewGetCollectionsUnauthorized() *GetCollectionsUnauthorized {
+	return &GetCollectionsUnauthorized{}
+}
+
+/*GetCollectionsUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetCollectionsUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCollectionsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetCollectionsUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCollectionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetCollectionsForbidden creates a GetCollectionsForbidden with default headers values
 func NewGetCollectionsForbidden() *GetCollectionsForbidden {
 	return &GetCollectionsForbidden{}
@@ -88,16 +178,28 @@ func NewGetCollectionsForbidden() *GetCollectionsForbidden {
 
 /*GetCollectionsForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetCollectionsForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetCollectionsForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetCollectionsForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetCollectionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetCollectionsNotFound() *GetCollectionsNotFound {
 
 /*GetCollectionsNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetCollectionsNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetCollectionsNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetCollectionsNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetCollectionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCollectionsUnprocessableEntity creates a GetCollectionsUnprocessableEntity with default headers values
+func NewGetCollectionsUnprocessableEntity() *GetCollectionsUnprocessableEntity {
+	return &GetCollectionsUnprocessableEntity{}
+}
+
+/*GetCollectionsUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetCollectionsUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCollectionsUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetCollectionsUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCollectionsUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCollectionsInternalServerError creates a GetCollectionsInternalServerError with default headers values
+func NewGetCollectionsInternalServerError() *GetCollectionsInternalServerError {
+	return &GetCollectionsInternalServerError{}
+}
+
+/*GetCollectionsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetCollectionsInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCollectionsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/collections][%d] getCollectionsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetCollectionsInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCollectionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

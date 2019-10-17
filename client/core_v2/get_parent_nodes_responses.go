@@ -30,6 +30,18 @@ func (o *GetParentNodesReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetParentNodesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetParentNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetParentNodesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetParentNodesReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 	case 404:
 		result := NewGetParentNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetParentNodesUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetParentNodesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetParentNodesOK) readResponse(response runtime.ClientResponse, consume
 	return nil
 }
 
+// NewGetParentNodesBadRequest creates a GetParentNodesBadRequest with default headers values
+func NewGetParentNodesBadRequest() *GetParentNodesBadRequest {
+	return &GetParentNodesBadRequest{}
+}
+
+/*GetParentNodesBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetParentNodesBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetParentNodesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetParentNodesBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetParentNodesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetParentNodesUnauthorized creates a GetParentNodesUnauthorized with default headers values
+func NewGetParentNodesUnauthorized() *GetParentNodesUnauthorized {
+	return &GetParentNodesUnauthorized{}
+}
+
+/*GetParentNodesUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetParentNodesUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetParentNodesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetParentNodesUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetParentNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetParentNodesForbidden creates a GetParentNodesForbidden with default headers values
 func NewGetParentNodesForbidden() *GetParentNodesForbidden {
 	return &GetParentNodesForbidden{}
@@ -88,16 +178,28 @@ func NewGetParentNodesForbidden() *GetParentNodesForbidden {
 
 /*GetParentNodesForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetParentNodesForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetParentNodesForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetParentNodesForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetParentNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetParentNodesNotFound() *GetParentNodesNotFound {
 
 /*GetParentNodesNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetParentNodesNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetParentNodesNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetParentNodesNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetParentNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetParentNodesUnprocessableEntity creates a GetParentNodesUnprocessableEntity with default headers values
+func NewGetParentNodesUnprocessableEntity() *GetParentNodesUnprocessableEntity {
+	return &GetParentNodesUnprocessableEntity{}
+}
+
+/*GetParentNodesUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetParentNodesUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetParentNodesUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetParentNodesUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetParentNodesUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetParentNodesInternalServerError creates a GetParentNodesInternalServerError with default headers values
+func NewGetParentNodesInternalServerError() *GetParentNodesInternalServerError {
+	return &GetParentNodesInternalServerError{}
+}
+
+/*GetParentNodesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetParentNodesInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetParentNodesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}/parents][%d] getParentNodesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetParentNodesInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetParentNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

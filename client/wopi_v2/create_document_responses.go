@@ -30,6 +30,18 @@ func (o *CreateDocumentReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCreateDocumentBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewCreateDocumentUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewCreateDocumentForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *CreateDocumentReader) ReadResponse(response runtime.ClientResponse, con
 		return nil, result
 	case 404:
 		result := NewCreateDocumentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewCreateDocumentUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCreateDocumentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *CreateDocumentCreated) readResponse(response runtime.ClientResponse, co
 	return nil
 }
 
+// NewCreateDocumentBadRequest creates a CreateDocumentBadRequest with default headers values
+func NewCreateDocumentBadRequest() *CreateDocumentBadRequest {
+	return &CreateDocumentBadRequest{}
+}
+
+/*CreateDocumentBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type CreateDocumentBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateDocumentBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateDocumentBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateDocumentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateDocumentUnauthorized creates a CreateDocumentUnauthorized with default headers values
+func NewCreateDocumentUnauthorized() *CreateDocumentUnauthorized {
+	return &CreateDocumentUnauthorized{}
+}
+
+/*CreateDocumentUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type CreateDocumentUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateDocumentUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CreateDocumentUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateDocumentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewCreateDocumentForbidden creates a CreateDocumentForbidden with default headers values
 func NewCreateDocumentForbidden() *CreateDocumentForbidden {
 	return &CreateDocumentForbidden{}
@@ -88,16 +178,28 @@ func NewCreateDocumentForbidden() *CreateDocumentForbidden {
 
 /*CreateDocumentForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type CreateDocumentForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CreateDocumentForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentForbidden  %+v", 403, o.Payload)
+}
+
+func (o *CreateDocumentForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CreateDocumentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewCreateDocumentNotFound() *CreateDocumentNotFound {
 
 /*CreateDocumentNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type CreateDocumentNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CreateDocumentNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CreateDocumentNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CreateDocumentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateDocumentUnprocessableEntity creates a CreateDocumentUnprocessableEntity with default headers values
+func NewCreateDocumentUnprocessableEntity() *CreateDocumentUnprocessableEntity {
+	return &CreateDocumentUnprocessableEntity{}
+}
+
+/*CreateDocumentUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type CreateDocumentUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateDocumentUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CreateDocumentUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateDocumentUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateDocumentInternalServerError creates a CreateDocumentInternalServerError with default headers values
+func NewCreateDocumentInternalServerError() *CreateDocumentInternalServerError {
+	return &CreateDocumentInternalServerError{}
+}
+
+/*CreateDocumentInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type CreateDocumentInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CreateDocumentInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/office/documents][%d] createDocumentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CreateDocumentInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CreateDocumentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

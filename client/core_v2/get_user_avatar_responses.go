@@ -30,6 +30,18 @@ func (o *GetUserAvatarReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetUserAvatarBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetUserAvatarUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetUserAvatarForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetUserAvatarReader) ReadResponse(response runtime.ClientResponse, cons
 		return nil, result
 	case 404:
 		result := NewGetUserAvatarNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetUserAvatarUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetUserAvatarInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetUserAvatarOK) readResponse(response runtime.ClientResponse, consumer
 	return nil
 }
 
+// NewGetUserAvatarBadRequest creates a GetUserAvatarBadRequest with default headers values
+func NewGetUserAvatarBadRequest() *GetUserAvatarBadRequest {
+	return &GetUserAvatarBadRequest{}
+}
+
+/*GetUserAvatarBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetUserAvatarBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetUserAvatarBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUserAvatarBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetUserAvatarBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserAvatarUnauthorized creates a GetUserAvatarUnauthorized with default headers values
+func NewGetUserAvatarUnauthorized() *GetUserAvatarUnauthorized {
+	return &GetUserAvatarUnauthorized{}
+}
+
+/*GetUserAvatarUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetUserAvatarUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetUserAvatarUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUserAvatarUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetUserAvatarUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetUserAvatarForbidden creates a GetUserAvatarForbidden with default headers values
 func NewGetUserAvatarForbidden() *GetUserAvatarForbidden {
 	return &GetUserAvatarForbidden{}
@@ -88,16 +178,28 @@ func NewGetUserAvatarForbidden() *GetUserAvatarForbidden {
 
 /*GetUserAvatarForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetUserAvatarForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetUserAvatarForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUserAvatarForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetUserAvatarForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetUserAvatarNotFound() *GetUserAvatarNotFound {
 
 /*GetUserAvatarNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetUserAvatarNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetUserAvatarNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUserAvatarNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetUserAvatarNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserAvatarUnprocessableEntity creates a GetUserAvatarUnprocessableEntity with default headers values
+func NewGetUserAvatarUnprocessableEntity() *GetUserAvatarUnprocessableEntity {
+	return &GetUserAvatarUnprocessableEntity{}
+}
+
+/*GetUserAvatarUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetUserAvatarUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetUserAvatarUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetUserAvatarUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetUserAvatarUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserAvatarInternalServerError creates a GetUserAvatarInternalServerError with default headers values
+func NewGetUserAvatarInternalServerError() *GetUserAvatarInternalServerError {
+	return &GetUserAvatarInternalServerError{}
+}
+
+/*GetUserAvatarInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetUserAvatarInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetUserAvatarInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/avatar][%d] getUserAvatarInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUserAvatarInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetUserAvatarInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

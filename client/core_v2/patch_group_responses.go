@@ -30,6 +30,18 @@ func (o *PatchGroupReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPatchGroupBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPatchGroupUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewPatchGroupForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *PatchGroupReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewPatchGroupNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewPatchGroupUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPatchGroupInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *PatchGroupOK) readResponse(response runtime.ClientResponse, consumer ru
 	return nil
 }
 
+// NewPatchGroupBadRequest creates a PatchGroupBadRequest with default headers values
+func NewPatchGroupBadRequest() *PatchGroupBadRequest {
+	return &PatchGroupBadRequest{}
+}
+
+/*PatchGroupBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type PatchGroupBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchGroupBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PatchGroupBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchGroupUnauthorized creates a PatchGroupUnauthorized with default headers values
+func NewPatchGroupUnauthorized() *PatchGroupUnauthorized {
+	return &PatchGroupUnauthorized{}
+}
+
+/*PatchGroupUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type PatchGroupUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchGroupUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchGroupUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchGroupUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewPatchGroupForbidden creates a PatchGroupForbidden with default headers values
 func NewPatchGroupForbidden() *PatchGroupForbidden {
 	return &PatchGroupForbidden{}
@@ -88,16 +178,28 @@ func NewPatchGroupForbidden() *PatchGroupForbidden {
 
 /*PatchGroupForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type PatchGroupForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *PatchGroupForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupForbidden ", 403)
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchGroupForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *PatchGroupForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewPatchGroupNotFound() *PatchGroupNotFound {
 
 /*PatchGroupNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type PatchGroupNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *PatchGroupNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupNotFound ", 404)
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchGroupNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *PatchGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchGroupUnprocessableEntity creates a PatchGroupUnprocessableEntity with default headers values
+func NewPatchGroupUnprocessableEntity() *PatchGroupUnprocessableEntity {
+	return &PatchGroupUnprocessableEntity{}
+}
+
+/*PatchGroupUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type PatchGroupUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchGroupUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *PatchGroupUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchGroupUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchGroupInternalServerError creates a PatchGroupInternalServerError with default headers values
+func NewPatchGroupInternalServerError() *PatchGroupInternalServerError {
+	return &PatchGroupInternalServerError{}
+}
+
+/*PatchGroupInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchGroupInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PatchGroupInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/groups/{group}][%d] patchGroupInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchGroupInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PatchGroupInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

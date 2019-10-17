@@ -30,6 +30,18 @@ func (o *SubscribeNodeReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewSubscribeNodeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewSubscribeNodeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewSubscribeNodeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *SubscribeNodeReader) ReadResponse(response runtime.ClientResponse, cons
 		return nil, result
 	case 404:
 		result := NewSubscribeNodeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewSubscribeNodeUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSubscribeNodeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *SubscribeNodeAccepted) readResponse(response runtime.ClientResponse, co
 	return nil
 }
 
+// NewSubscribeNodeBadRequest creates a SubscribeNodeBadRequest with default headers values
+func NewSubscribeNodeBadRequest() *SubscribeNodeBadRequest {
+	return &SubscribeNodeBadRequest{}
+}
+
+/*SubscribeNodeBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type SubscribeNodeBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SubscribeNodeBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SubscribeNodeBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SubscribeNodeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeNodeUnauthorized creates a SubscribeNodeUnauthorized with default headers values
+func NewSubscribeNodeUnauthorized() *SubscribeNodeUnauthorized {
+	return &SubscribeNodeUnauthorized{}
+}
+
+/*SubscribeNodeUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SubscribeNodeUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SubscribeNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SubscribeNodeUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SubscribeNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewSubscribeNodeForbidden creates a SubscribeNodeForbidden with default headers values
 func NewSubscribeNodeForbidden() *SubscribeNodeForbidden {
 	return &SubscribeNodeForbidden{}
@@ -88,16 +178,28 @@ func NewSubscribeNodeForbidden() *SubscribeNodeForbidden {
 
 /*SubscribeNodeForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type SubscribeNodeForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *SubscribeNodeForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SubscribeNodeForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *SubscribeNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewSubscribeNodeNotFound() *SubscribeNodeNotFound {
 
 /*SubscribeNodeNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type SubscribeNodeNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *SubscribeNodeNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SubscribeNodeNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *SubscribeNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeNodeUnprocessableEntity creates a SubscribeNodeUnprocessableEntity with default headers values
+func NewSubscribeNodeUnprocessableEntity() *SubscribeNodeUnprocessableEntity {
+	return &SubscribeNodeUnprocessableEntity{}
+}
+
+/*SubscribeNodeUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type SubscribeNodeUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SubscribeNodeUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *SubscribeNodeUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SubscribeNodeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSubscribeNodeInternalServerError creates a SubscribeNodeInternalServerError with default headers values
+func NewSubscribeNodeInternalServerError() *SubscribeNodeInternalServerError {
+	return &SubscribeNodeInternalServerError{}
+}
+
+/*SubscribeNodeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type SubscribeNodeInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SubscribeNodeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/subscription][%d] subscribeNodeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SubscribeNodeInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SubscribeNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

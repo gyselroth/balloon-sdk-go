@@ -30,6 +30,12 @@ func (o *GetAPIReader) ReadResponse(response runtime.ClientResponse, consumer ru
 			return nil, err
 		}
 		return result, nil
+	case 500:
+		result := NewGetAPIInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +66,39 @@ func (o *GetAPIOK) GetPayload() *models.CoreV2APIRoot {
 func (o *GetAPIOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2APIRoot)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAPIInternalServerError creates a GetAPIInternalServerError with default headers values
+func NewGetAPIInternalServerError() *GetAPIInternalServerError {
+	return &GetAPIInternalServerError{}
+}
+
+/*GetAPIInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetAPIInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetAPIInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api][%d] getApiInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetAPIInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetAPIInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

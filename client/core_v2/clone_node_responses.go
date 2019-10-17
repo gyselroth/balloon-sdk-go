@@ -36,6 +36,18 @@ func (o *CloneNodeReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCloneNodeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewCloneNodeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewCloneNodeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -44,6 +56,18 @@ func (o *CloneNodeReader) ReadResponse(response runtime.ClientResponse, consumer
 		return nil, result
 	case 404:
 		result := NewCloneNodeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewCloneNodeUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewCloneNodeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -108,6 +132,72 @@ func (o *CloneNodeMultiStatus) readResponse(response runtime.ClientResponse, con
 	return nil
 }
 
+// NewCloneNodeBadRequest creates a CloneNodeBadRequest with default headers values
+func NewCloneNodeBadRequest() *CloneNodeBadRequest {
+	return &CloneNodeBadRequest{}
+}
+
+/*CloneNodeBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type CloneNodeBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CloneNodeBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CloneNodeBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CloneNodeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCloneNodeUnauthorized creates a CloneNodeUnauthorized with default headers values
+func NewCloneNodeUnauthorized() *CloneNodeUnauthorized {
+	return &CloneNodeUnauthorized{}
+}
+
+/*CloneNodeUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type CloneNodeUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CloneNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CloneNodeUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CloneNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewCloneNodeForbidden creates a CloneNodeForbidden with default headers values
 func NewCloneNodeForbidden() *CloneNodeForbidden {
 	return &CloneNodeForbidden{}
@@ -115,16 +205,28 @@ func NewCloneNodeForbidden() *CloneNodeForbidden {
 
 /*CloneNodeForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type CloneNodeForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CloneNodeForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *CloneNodeForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CloneNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -136,16 +238,94 @@ func NewCloneNodeNotFound() *CloneNodeNotFound {
 
 /*CloneNodeNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type CloneNodeNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *CloneNodeNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CloneNodeNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *CloneNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCloneNodeUnprocessableEntity creates a CloneNodeUnprocessableEntity with default headers values
+func NewCloneNodeUnprocessableEntity() *CloneNodeUnprocessableEntity {
+	return &CloneNodeUnprocessableEntity{}
+}
+
+/*CloneNodeUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type CloneNodeUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CloneNodeUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *CloneNodeUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CloneNodeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCloneNodeInternalServerError creates a CloneNodeInternalServerError with default headers values
+func NewCloneNodeInternalServerError() *CloneNodeInternalServerError {
+	return &CloneNodeInternalServerError{}
+}
+
+/*CloneNodeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type CloneNodeInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *CloneNodeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/clone][%d] cloneNodeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CloneNodeInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *CloneNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

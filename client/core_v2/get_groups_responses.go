@@ -30,8 +30,38 @@ func (o *GetGroupsReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetGroupsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetGroupsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetGroupsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetGroupsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetGroupsUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetGroupsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -75,6 +105,72 @@ func (o *GetGroupsOK) readResponse(response runtime.ClientResponse, consumer run
 	return nil
 }
 
+// NewGetGroupsBadRequest creates a GetGroupsBadRequest with default headers values
+func NewGetGroupsBadRequest() *GetGroupsBadRequest {
+	return &GetGroupsBadRequest{}
+}
+
+/*GetGroupsBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetGroupsBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetGroupsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetGroupsBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetGroupsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGroupsUnauthorized creates a GetGroupsUnauthorized with default headers values
+func NewGetGroupsUnauthorized() *GetGroupsUnauthorized {
+	return &GetGroupsUnauthorized{}
+}
+
+/*GetGroupsUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetGroupsUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetGroupsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetGroupsUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetGroupsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetGroupsForbidden creates a GetGroupsForbidden with default headers values
 func NewGetGroupsForbidden() *GetGroupsForbidden {
 	return &GetGroupsForbidden{}
@@ -82,16 +178,127 @@ func NewGetGroupsForbidden() *GetGroupsForbidden {
 
 /*GetGroupsForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetGroupsForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetGroupsForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetGroupsForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetGroupsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGroupsNotFound creates a GetGroupsNotFound with default headers values
+func NewGetGroupsNotFound() *GetGroupsNotFound {
+	return &GetGroupsNotFound{}
+}
+
+/*GetGroupsNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type GetGroupsNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetGroupsNotFound) Error() string {
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetGroupsNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetGroupsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGroupsUnprocessableEntity creates a GetGroupsUnprocessableEntity with default headers values
+func NewGetGroupsUnprocessableEntity() *GetGroupsUnprocessableEntity {
+	return &GetGroupsUnprocessableEntity{}
+}
+
+/*GetGroupsUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetGroupsUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetGroupsUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetGroupsUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetGroupsUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGroupsInternalServerError creates a GetGroupsInternalServerError with default headers values
+func NewGetGroupsInternalServerError() *GetGroupsInternalServerError {
+	return &GetGroupsInternalServerError{}
+}
+
+/*GetGroupsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetGroupsInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetGroupsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/groups][%d] getGroupsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetGroupsInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetGroupsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

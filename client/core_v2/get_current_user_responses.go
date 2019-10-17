@@ -30,6 +30,42 @@ func (o *GetCurrentUserReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetCurrentUserBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetCurrentUserUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetCurrentUserForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetCurrentUserNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetCurrentUserUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetCurrentUserInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +96,204 @@ func (o *GetCurrentUserOK) GetPayload() *models.CoreV2User {
 func (o *GetCurrentUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2User)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserBadRequest creates a GetCurrentUserBadRequest with default headers values
+func NewGetCurrentUserBadRequest() *GetCurrentUserBadRequest {
+	return &GetCurrentUserBadRequest{}
+}
+
+/*GetCurrentUserBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetCurrentUserBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetCurrentUserBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserUnauthorized creates a GetCurrentUserUnauthorized with default headers values
+func NewGetCurrentUserUnauthorized() *GetCurrentUserUnauthorized {
+	return &GetCurrentUserUnauthorized{}
+}
+
+/*GetCurrentUserUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetCurrentUserUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetCurrentUserUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserForbidden creates a GetCurrentUserForbidden with default headers values
+func NewGetCurrentUserForbidden() *GetCurrentUserForbidden {
+	return &GetCurrentUserForbidden{}
+}
+
+/*GetCurrentUserForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetCurrentUserForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserForbidden) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetCurrentUserForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserNotFound creates a GetCurrentUserNotFound with default headers values
+func NewGetCurrentUserNotFound() *GetCurrentUserNotFound {
+	return &GetCurrentUserNotFound{}
+}
+
+/*GetCurrentUserNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type GetCurrentUserNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserNotFound) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetCurrentUserNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserUnprocessableEntity creates a GetCurrentUserUnprocessableEntity with default headers values
+func NewGetCurrentUserUnprocessableEntity() *GetCurrentUserUnprocessableEntity {
+	return &GetCurrentUserUnprocessableEntity{}
+}
+
+/*GetCurrentUserUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetCurrentUserUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetCurrentUserUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserInternalServerError creates a GetCurrentUserInternalServerError with default headers values
+func NewGetCurrentUserInternalServerError() *GetCurrentUserInternalServerError {
+	return &GetCurrentUserInternalServerError{}
+}
+
+/*GetCurrentUserInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetCurrentUserInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetCurrentUserInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/whoami][%d] getCurrentUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetCurrentUserInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetCurrentUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

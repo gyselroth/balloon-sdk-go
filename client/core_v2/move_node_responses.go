@@ -36,6 +36,18 @@ func (o *MoveNodeReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewMoveNodeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewMoveNodeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewMoveNodeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -44,6 +56,18 @@ func (o *MoveNodeReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 	case 404:
 		result := NewMoveNodeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewMoveNodeUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewMoveNodeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -108,6 +132,72 @@ func (o *MoveNodeMultiStatus) readResponse(response runtime.ClientResponse, cons
 	return nil
 }
 
+// NewMoveNodeBadRequest creates a MoveNodeBadRequest with default headers values
+func NewMoveNodeBadRequest() *MoveNodeBadRequest {
+	return &MoveNodeBadRequest{}
+}
+
+/*MoveNodeBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type MoveNodeBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *MoveNodeBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *MoveNodeBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *MoveNodeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewMoveNodeUnauthorized creates a MoveNodeUnauthorized with default headers values
+func NewMoveNodeUnauthorized() *MoveNodeUnauthorized {
+	return &MoveNodeUnauthorized{}
+}
+
+/*MoveNodeUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type MoveNodeUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *MoveNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *MoveNodeUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *MoveNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewMoveNodeForbidden creates a MoveNodeForbidden with default headers values
 func NewMoveNodeForbidden() *MoveNodeForbidden {
 	return &MoveNodeForbidden{}
@@ -115,16 +205,28 @@ func NewMoveNodeForbidden() *MoveNodeForbidden {
 
 /*MoveNodeForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type MoveNodeForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *MoveNodeForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *MoveNodeForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *MoveNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -136,16 +238,94 @@ func NewMoveNodeNotFound() *MoveNodeNotFound {
 
 /*MoveNodeNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type MoveNodeNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *MoveNodeNotFound) Error() string {
-	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeNotFound ", 404)
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *MoveNodeNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *MoveNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewMoveNodeUnprocessableEntity creates a MoveNodeUnprocessableEntity with default headers values
+func NewMoveNodeUnprocessableEntity() *MoveNodeUnprocessableEntity {
+	return &MoveNodeUnprocessableEntity{}
+}
+
+/*MoveNodeUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type MoveNodeUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *MoveNodeUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *MoveNodeUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *MoveNodeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewMoveNodeInternalServerError creates a MoveNodeInternalServerError with default headers values
+func NewMoveNodeInternalServerError() *MoveNodeInternalServerError {
+	return &MoveNodeInternalServerError{}
+}
+
+/*MoveNodeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type MoveNodeInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *MoveNodeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/nodes/{node}/move][%d] moveNodeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *MoveNodeInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *MoveNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

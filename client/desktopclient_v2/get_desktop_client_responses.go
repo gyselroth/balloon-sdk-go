@@ -12,6 +12,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // GetDesktopClientReader is a Reader for the GetDesktopClient structure.
@@ -29,6 +31,42 @@ func (o *GetDesktopClientReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetDesktopClientBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetDesktopClientUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetDesktopClientForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetDesktopClientNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetDesktopClientUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetDesktopClientInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -59,6 +97,204 @@ func (o *GetDesktopClientOK) GetPayload() io.Writer {
 }
 
 func (o *GetDesktopClientOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientBadRequest creates a GetDesktopClientBadRequest with default headers values
+func NewGetDesktopClientBadRequest() *GetDesktopClientBadRequest {
+	return &GetDesktopClientBadRequest{}
+}
+
+/*GetDesktopClientBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetDesktopClientBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetDesktopClientBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientUnauthorized creates a GetDesktopClientUnauthorized with default headers values
+func NewGetDesktopClientUnauthorized() *GetDesktopClientUnauthorized {
+	return &GetDesktopClientUnauthorized{}
+}
+
+/*GetDesktopClientUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetDesktopClientUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetDesktopClientUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientForbidden creates a GetDesktopClientForbidden with default headers values
+func NewGetDesktopClientForbidden() *GetDesktopClientForbidden {
+	return &GetDesktopClientForbidden{}
+}
+
+/*GetDesktopClientForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetDesktopClientForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientForbidden) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetDesktopClientForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientNotFound creates a GetDesktopClientNotFound with default headers values
+func NewGetDesktopClientNotFound() *GetDesktopClientNotFound {
+	return &GetDesktopClientNotFound{}
+}
+
+/*GetDesktopClientNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type GetDesktopClientNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientNotFound) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDesktopClientNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientUnprocessableEntity creates a GetDesktopClientUnprocessableEntity with default headers values
+func NewGetDesktopClientUnprocessableEntity() *GetDesktopClientUnprocessableEntity {
+	return &GetDesktopClientUnprocessableEntity{}
+}
+
+/*GetDesktopClientUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetDesktopClientUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetDesktopClientUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDesktopClientInternalServerError creates a GetDesktopClientInternalServerError with default headers values
+func NewGetDesktopClientInternalServerError() *GetDesktopClientInternalServerError {
+	return &GetDesktopClientInternalServerError{}
+}
+
+/*GetDesktopClientInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetDesktopClientInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDesktopClientInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/desktop-clients/{format}/content][%d] getDesktopClientInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDesktopClientInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDesktopClientInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

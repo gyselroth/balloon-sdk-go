@@ -30,6 +30,18 @@ func (o *GetFilesReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetFilesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetFilesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetFilesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetFilesReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 	case 404:
 		result := NewGetFilesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetFilesUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetFilesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetFilesOK) readResponse(response runtime.ClientResponse, consumer runt
 	return nil
 }
 
+// NewGetFilesBadRequest creates a GetFilesBadRequest with default headers values
+func NewGetFilesBadRequest() *GetFilesBadRequest {
+	return &GetFilesBadRequest{}
+}
+
+/*GetFilesBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetFilesBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFilesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetFilesBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFilesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFilesUnauthorized creates a GetFilesUnauthorized with default headers values
+func NewGetFilesUnauthorized() *GetFilesUnauthorized {
+	return &GetFilesUnauthorized{}
+}
+
+/*GetFilesUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetFilesUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFilesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetFilesUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFilesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetFilesForbidden creates a GetFilesForbidden with default headers values
 func NewGetFilesForbidden() *GetFilesForbidden {
 	return &GetFilesForbidden{}
@@ -88,16 +178,28 @@ func NewGetFilesForbidden() *GetFilesForbidden {
 
 /*GetFilesForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetFilesForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetFilesForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetFilesForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetFilesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetFilesNotFound() *GetFilesNotFound {
 
 /*GetFilesNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetFilesNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetFilesNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetFilesNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetFilesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFilesUnprocessableEntity creates a GetFilesUnprocessableEntity with default headers values
+func NewGetFilesUnprocessableEntity() *GetFilesUnprocessableEntity {
+	return &GetFilesUnprocessableEntity{}
+}
+
+/*GetFilesUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetFilesUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFilesUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetFilesUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFilesUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetFilesInternalServerError creates a GetFilesInternalServerError with default headers values
+func NewGetFilesInternalServerError() *GetFilesInternalServerError {
+	return &GetFilesInternalServerError{}
+}
+
+/*GetFilesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetFilesInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetFilesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files][%d] getFilesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetFilesInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetFilesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

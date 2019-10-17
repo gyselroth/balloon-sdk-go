@@ -30,6 +30,18 @@ func (o *UpdateNodeReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewUpdateNodeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewUpdateNodeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewUpdateNodeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *UpdateNodeReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewUpdateNodeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewUpdateNodeUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewUpdateNodeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *UpdateNodeOK) readResponse(response runtime.ClientResponse, consumer ru
 	return nil
 }
 
+// NewUpdateNodeBadRequest creates a UpdateNodeBadRequest with default headers values
+func NewUpdateNodeBadRequest() *UpdateNodeBadRequest {
+	return &UpdateNodeBadRequest{}
+}
+
+/*UpdateNodeBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type UpdateNodeBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateNodeBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateNodeBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateNodeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateNodeUnauthorized creates a UpdateNodeUnauthorized with default headers values
+func NewUpdateNodeUnauthorized() *UpdateNodeUnauthorized {
+	return &UpdateNodeUnauthorized{}
+}
+
+/*UpdateNodeUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type UpdateNodeUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UpdateNodeUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewUpdateNodeForbidden creates a UpdateNodeForbidden with default headers values
 func NewUpdateNodeForbidden() *UpdateNodeForbidden {
 	return &UpdateNodeForbidden{}
@@ -88,16 +178,28 @@ func NewUpdateNodeForbidden() *UpdateNodeForbidden {
 
 /*UpdateNodeForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type UpdateNodeForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UpdateNodeForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeForbidden ", 403)
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *UpdateNodeForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UpdateNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewUpdateNodeNotFound() *UpdateNodeNotFound {
 
 /*UpdateNodeNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type UpdateNodeNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *UpdateNodeNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeNotFound ", 404)
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateNodeNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *UpdateNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateNodeUnprocessableEntity creates a UpdateNodeUnprocessableEntity with default headers values
+func NewUpdateNodeUnprocessableEntity() *UpdateNodeUnprocessableEntity {
+	return &UpdateNodeUnprocessableEntity{}
+}
+
+/*UpdateNodeUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type UpdateNodeUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateNodeUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *UpdateNodeUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateNodeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateNodeInternalServerError creates a UpdateNodeInternalServerError with default headers values
+func NewUpdateNodeInternalServerError() *UpdateNodeInternalServerError {
+	return &UpdateNodeInternalServerError{}
+}
+
+/*UpdateNodeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type UpdateNodeInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *UpdateNodeInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /api/v2/nodes/{node}][%d] updateNodeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UpdateNodeInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *UpdateNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

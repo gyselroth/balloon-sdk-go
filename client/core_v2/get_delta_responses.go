@@ -30,6 +30,18 @@ func (o *GetDeltaReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetDeltaBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetDeltaUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetDeltaForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetDeltaReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 	case 404:
 		result := NewGetDeltaNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetDeltaUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetDeltaInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetDeltaOK) readResponse(response runtime.ClientResponse, consumer runt
 	return nil
 }
 
+// NewGetDeltaBadRequest creates a GetDeltaBadRequest with default headers values
+func NewGetDeltaBadRequest() *GetDeltaBadRequest {
+	return &GetDeltaBadRequest{}
+}
+
+/*GetDeltaBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetDeltaBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeltaBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetDeltaBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeltaBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeltaUnauthorized creates a GetDeltaUnauthorized with default headers values
+func NewGetDeltaUnauthorized() *GetDeltaUnauthorized {
+	return &GetDeltaUnauthorized{}
+}
+
+/*GetDeltaUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetDeltaUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeltaUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetDeltaUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeltaUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetDeltaForbidden creates a GetDeltaForbidden with default headers values
 func NewGetDeltaForbidden() *GetDeltaForbidden {
 	return &GetDeltaForbidden{}
@@ -88,16 +178,28 @@ func NewGetDeltaForbidden() *GetDeltaForbidden {
 
 /*GetDeltaForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetDeltaForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetDeltaForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetDeltaForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetDeltaForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetDeltaNotFound() *GetDeltaNotFound {
 
 /*GetDeltaNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetDeltaNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetDeltaNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDeltaNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetDeltaNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeltaUnprocessableEntity creates a GetDeltaUnprocessableEntity with default headers values
+func NewGetDeltaUnprocessableEntity() *GetDeltaUnprocessableEntity {
+	return &GetDeltaUnprocessableEntity{}
+}
+
+/*GetDeltaUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetDeltaUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeltaUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetDeltaUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeltaUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeltaInternalServerError creates a GetDeltaInternalServerError with default headers values
+func NewGetDeltaInternalServerError() *GetDeltaInternalServerError {
+	return &GetDeltaInternalServerError{}
+}
+
+/*GetDeltaInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetDeltaInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeltaInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/delta][%d] getDeltaInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeltaInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeltaInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

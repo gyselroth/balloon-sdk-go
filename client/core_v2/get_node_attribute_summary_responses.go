@@ -30,6 +30,18 @@ func (o *GetNodeAttributeSummaryReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetNodeAttributeSummaryBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetNodeAttributeSummaryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetNodeAttributeSummaryForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetNodeAttributeSummaryReader) ReadResponse(response runtime.ClientResp
 		return nil, result
 	case 404:
 		result := NewGetNodeAttributeSummaryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetNodeAttributeSummaryUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetNodeAttributeSummaryInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -79,6 +103,72 @@ func (o *GetNodeAttributeSummaryOK) readResponse(response runtime.ClientResponse
 	return nil
 }
 
+// NewGetNodeAttributeSummaryBadRequest creates a GetNodeAttributeSummaryBadRequest with default headers values
+func NewGetNodeAttributeSummaryBadRequest() *GetNodeAttributeSummaryBadRequest {
+	return &GetNodeAttributeSummaryBadRequest{}
+}
+
+/*GetNodeAttributeSummaryBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetNodeAttributeSummaryBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeAttributeSummaryBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeAttributeSummaryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeAttributeSummaryUnauthorized creates a GetNodeAttributeSummaryUnauthorized with default headers values
+func NewGetNodeAttributeSummaryUnauthorized() *GetNodeAttributeSummaryUnauthorized {
+	return &GetNodeAttributeSummaryUnauthorized{}
+}
+
+/*GetNodeAttributeSummaryUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetNodeAttributeSummaryUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeAttributeSummaryUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeAttributeSummaryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetNodeAttributeSummaryForbidden creates a GetNodeAttributeSummaryForbidden with default headers values
 func NewGetNodeAttributeSummaryForbidden() *GetNodeAttributeSummaryForbidden {
 	return &GetNodeAttributeSummaryForbidden{}
@@ -86,16 +176,28 @@ func NewGetNodeAttributeSummaryForbidden() *GetNodeAttributeSummaryForbidden {
 
 /*GetNodeAttributeSummaryForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetNodeAttributeSummaryForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNodeAttributeSummaryForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNodeAttributeSummaryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -107,16 +209,94 @@ func NewGetNodeAttributeSummaryNotFound() *GetNodeAttributeSummaryNotFound {
 
 /*GetNodeAttributeSummaryNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetNodeAttributeSummaryNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNodeAttributeSummaryNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNodeAttributeSummaryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeAttributeSummaryUnprocessableEntity creates a GetNodeAttributeSummaryUnprocessableEntity with default headers values
+func NewGetNodeAttributeSummaryUnprocessableEntity() *GetNodeAttributeSummaryUnprocessableEntity {
+	return &GetNodeAttributeSummaryUnprocessableEntity{}
+}
+
+/*GetNodeAttributeSummaryUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetNodeAttributeSummaryUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeAttributeSummaryUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeAttributeSummaryUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeAttributeSummaryInternalServerError creates a GetNodeAttributeSummaryInternalServerError with default headers values
+func NewGetNodeAttributeSummaryInternalServerError() *GetNodeAttributeSummaryInternalServerError {
+	return &GetNodeAttributeSummaryInternalServerError{}
+}
+
+/*GetNodeAttributeSummaryInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetNodeAttributeSummaryInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeAttributeSummaryInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/users/{user}/node-attribute-summary][%d] getNodeAttributeSummaryInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetNodeAttributeSummaryInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeAttributeSummaryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

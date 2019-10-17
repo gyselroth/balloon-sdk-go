@@ -7,10 +7,13 @@ package core_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // DeleteUserReader is a Reader for the DeleteUser structure.
@@ -27,6 +30,18 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteUserBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteUserUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewDeleteUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -35,6 +50,18 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 		return nil, result
 	case 404:
 		result := NewDeleteUserNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewDeleteUserUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteUserInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -66,6 +93,72 @@ func (o *DeleteUserNoContent) readResponse(response runtime.ClientResponse, cons
 	return nil
 }
 
+// NewDeleteUserBadRequest creates a DeleteUserBadRequest with default headers values
+func NewDeleteUserBadRequest() *DeleteUserBadRequest {
+	return &DeleteUserBadRequest{}
+}
+
+/*DeleteUserBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type DeleteUserBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteUserBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteUserBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserUnauthorized creates a DeleteUserUnauthorized with default headers values
+func NewDeleteUserUnauthorized() *DeleteUserUnauthorized {
+	return &DeleteUserUnauthorized{}
+}
+
+/*DeleteUserUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteUserUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteUserUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteUserUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewDeleteUserForbidden creates a DeleteUserForbidden with default headers values
 func NewDeleteUserForbidden() *DeleteUserForbidden {
 	return &DeleteUserForbidden{}
@@ -73,16 +166,28 @@ func NewDeleteUserForbidden() *DeleteUserForbidden {
 
 /*DeleteUserForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type DeleteUserForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteUserForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserForbidden ", 403)
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteUserForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -94,16 +199,94 @@ func NewDeleteUserNotFound() *DeleteUserNotFound {
 
 /*DeleteUserNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type DeleteUserNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *DeleteUserNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserNotFound ", 404)
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteUserNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserUnprocessableEntity creates a DeleteUserUnprocessableEntity with default headers values
+func NewDeleteUserUnprocessableEntity() *DeleteUserUnprocessableEntity {
+	return &DeleteUserUnprocessableEntity{}
+}
+
+/*DeleteUserUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type DeleteUserUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteUserUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *DeleteUserUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteUserUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUserInternalServerError creates a DeleteUserInternalServerError with default headers values
+func NewDeleteUserInternalServerError() *DeleteUserInternalServerError {
+	return &DeleteUserInternalServerError{}
+}
+
+/*DeleteUserInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteUserInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *DeleteUserInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /api/v2/users/{user}][%d] deleteUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteUserInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *DeleteUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

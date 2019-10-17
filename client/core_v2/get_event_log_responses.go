@@ -30,6 +30,18 @@ func (o *GetEventLogReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetEventLogBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetEventLogUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetEventLogForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetEventLogReader) ReadResponse(response runtime.ClientResponse, consum
 		return nil, result
 	case 404:
 		result := NewGetEventLogNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetEventLogUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetEventLogInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetEventLogOK) readResponse(response runtime.ClientResponse, consumer r
 	return nil
 }
 
+// NewGetEventLogBadRequest creates a GetEventLogBadRequest with default headers values
+func NewGetEventLogBadRequest() *GetEventLogBadRequest {
+	return &GetEventLogBadRequest{}
+}
+
+/*GetEventLogBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetEventLogBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetEventLogBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetEventLogBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetEventLogBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEventLogUnauthorized creates a GetEventLogUnauthorized with default headers values
+func NewGetEventLogUnauthorized() *GetEventLogUnauthorized {
+	return &GetEventLogUnauthorized{}
+}
+
+/*GetEventLogUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetEventLogUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetEventLogUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetEventLogUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetEventLogUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetEventLogForbidden creates a GetEventLogForbidden with default headers values
 func NewGetEventLogForbidden() *GetEventLogForbidden {
 	return &GetEventLogForbidden{}
@@ -88,16 +178,28 @@ func NewGetEventLogForbidden() *GetEventLogForbidden {
 
 /*GetEventLogForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetEventLogForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetEventLogForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetEventLogForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetEventLogForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetEventLogNotFound() *GetEventLogNotFound {
 
 /*GetEventLogNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetEventLogNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetEventLogNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEventLogNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetEventLogNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEventLogUnprocessableEntity creates a GetEventLogUnprocessableEntity with default headers values
+func NewGetEventLogUnprocessableEntity() *GetEventLogUnprocessableEntity {
+	return &GetEventLogUnprocessableEntity{}
+}
+
+/*GetEventLogUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetEventLogUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetEventLogUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetEventLogUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetEventLogUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEventLogInternalServerError creates a GetEventLogInternalServerError with default headers values
+func NewGetEventLogInternalServerError() *GetEventLogInternalServerError {
+	return &GetEventLogInternalServerError{}
+}
+
+/*GetEventLogInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetEventLogInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetEventLogInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/event-log][%d] getEventLogInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetEventLogInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetEventLogInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

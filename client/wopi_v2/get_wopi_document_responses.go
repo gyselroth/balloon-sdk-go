@@ -30,6 +30,18 @@ func (o *GetWopiDocumentReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetWopiDocumentBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetWopiDocumentUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetWopiDocumentForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetWopiDocumentReader) ReadResponse(response runtime.ClientResponse, co
 		return nil, result
 	case 404:
 		result := NewGetWopiDocumentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetWopiDocumentUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetWopiDocumentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetWopiDocumentOK) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
+// NewGetWopiDocumentBadRequest creates a GetWopiDocumentBadRequest with default headers values
+func NewGetWopiDocumentBadRequest() *GetWopiDocumentBadRequest {
+	return &GetWopiDocumentBadRequest{}
+}
+
+/*GetWopiDocumentBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetWopiDocumentBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetWopiDocumentBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetWopiDocumentBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetWopiDocumentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetWopiDocumentUnauthorized creates a GetWopiDocumentUnauthorized with default headers values
+func NewGetWopiDocumentUnauthorized() *GetWopiDocumentUnauthorized {
+	return &GetWopiDocumentUnauthorized{}
+}
+
+/*GetWopiDocumentUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetWopiDocumentUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetWopiDocumentUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetWopiDocumentUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetWopiDocumentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetWopiDocumentForbidden creates a GetWopiDocumentForbidden with default headers values
 func NewGetWopiDocumentForbidden() *GetWopiDocumentForbidden {
 	return &GetWopiDocumentForbidden{}
@@ -88,16 +178,28 @@ func NewGetWopiDocumentForbidden() *GetWopiDocumentForbidden {
 
 /*GetWopiDocumentForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetWopiDocumentForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetWopiDocumentForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetWopiDocumentForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetWopiDocumentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetWopiDocumentNotFound() *GetWopiDocumentNotFound {
 
 /*GetWopiDocumentNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetWopiDocumentNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetWopiDocumentNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetWopiDocumentNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetWopiDocumentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetWopiDocumentUnprocessableEntity creates a GetWopiDocumentUnprocessableEntity with default headers values
+func NewGetWopiDocumentUnprocessableEntity() *GetWopiDocumentUnprocessableEntity {
+	return &GetWopiDocumentUnprocessableEntity{}
+}
+
+/*GetWopiDocumentUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetWopiDocumentUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetWopiDocumentUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetWopiDocumentUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetWopiDocumentUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetWopiDocumentInternalServerError creates a GetWopiDocumentInternalServerError with default headers values
+func NewGetWopiDocumentInternalServerError() *GetWopiDocumentInternalServerError {
+	return &GetWopiDocumentInternalServerError{}
+}
+
+/*GetWopiDocumentInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetWopiDocumentInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetWopiDocumentInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/office/wopi/document/{document}][%d] getWopiDocumentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetWopiDocumentInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetWopiDocumentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

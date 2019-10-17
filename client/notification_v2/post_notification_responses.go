@@ -30,6 +30,42 @@ func (o *PostNotificationReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostNotificationBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostNotificationUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostNotificationForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostNotificationNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewPostNotificationUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostNotificationInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +96,204 @@ func (o *PostNotificationAccepted) GetPayload() *models.NotificationV2Notificati
 func (o *PostNotificationAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.NotificationV2Notification)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationBadRequest creates a PostNotificationBadRequest with default headers values
+func NewPostNotificationBadRequest() *PostNotificationBadRequest {
+	return &PostNotificationBadRequest{}
+}
+
+/*PostNotificationBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type PostNotificationBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostNotificationBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationUnauthorized creates a PostNotificationUnauthorized with default headers values
+func NewPostNotificationUnauthorized() *PostNotificationUnauthorized {
+	return &PostNotificationUnauthorized{}
+}
+
+/*PostNotificationUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type PostNotificationUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostNotificationUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationForbidden creates a PostNotificationForbidden with default headers values
+func NewPostNotificationForbidden() *PostNotificationForbidden {
+	return &PostNotificationForbidden{}
+}
+
+/*PostNotificationForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostNotificationForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationForbidden) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostNotificationForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationNotFound creates a PostNotificationNotFound with default headers values
+func NewPostNotificationNotFound() *PostNotificationNotFound {
+	return &PostNotificationNotFound{}
+}
+
+/*PostNotificationNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type PostNotificationNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationNotFound) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostNotificationNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationUnprocessableEntity creates a PostNotificationUnprocessableEntity with default headers values
+func NewPostNotificationUnprocessableEntity() *PostNotificationUnprocessableEntity {
+	return &PostNotificationUnprocessableEntity{}
+}
+
+/*PostNotificationUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type PostNotificationUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *PostNotificationUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostNotificationInternalServerError creates a PostNotificationInternalServerError with default headers values
+func NewPostNotificationInternalServerError() *PostNotificationInternalServerError {
+	return &PostNotificationInternalServerError{}
+}
+
+/*PostNotificationInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostNotificationInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *PostNotificationInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications][%d] postNotificationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostNotificationInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *PostNotificationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

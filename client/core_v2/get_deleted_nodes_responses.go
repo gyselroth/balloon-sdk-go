@@ -30,6 +30,42 @@ func (o *GetDeletedNodesReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetDeletedNodesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetDeletedNodesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetDeletedNodesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetDeletedNodesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetDeletedNodesUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetDeletedNodesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +96,204 @@ func (o *GetDeletedNodesOK) GetPayload() *models.CoreV2Nodes {
 func (o *GetDeletedNodesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2Nodes)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesBadRequest creates a GetDeletedNodesBadRequest with default headers values
+func NewGetDeletedNodesBadRequest() *GetDeletedNodesBadRequest {
+	return &GetDeletedNodesBadRequest{}
+}
+
+/*GetDeletedNodesBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetDeletedNodesBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetDeletedNodesBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesUnauthorized creates a GetDeletedNodesUnauthorized with default headers values
+func NewGetDeletedNodesUnauthorized() *GetDeletedNodesUnauthorized {
+	return &GetDeletedNodesUnauthorized{}
+}
+
+/*GetDeletedNodesUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetDeletedNodesUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetDeletedNodesUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesForbidden creates a GetDeletedNodesForbidden with default headers values
+func NewGetDeletedNodesForbidden() *GetDeletedNodesForbidden {
+	return &GetDeletedNodesForbidden{}
+}
+
+/*GetDeletedNodesForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetDeletedNodesForbidden struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesForbidden) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetDeletedNodesForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesNotFound creates a GetDeletedNodesNotFound with default headers values
+func NewGetDeletedNodesNotFound() *GetDeletedNodesNotFound {
+	return &GetDeletedNodesNotFound{}
+}
+
+/*GetDeletedNodesNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type GetDeletedNodesNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesNotFound) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDeletedNodesNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesUnprocessableEntity creates a GetDeletedNodesUnprocessableEntity with default headers values
+func NewGetDeletedNodesUnprocessableEntity() *GetDeletedNodesUnprocessableEntity {
+	return &GetDeletedNodesUnprocessableEntity{}
+}
+
+/*GetDeletedNodesUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetDeletedNodesUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetDeletedNodesUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeletedNodesInternalServerError creates a GetDeletedNodesInternalServerError with default headers values
+func NewGetDeletedNodesInternalServerError() *GetDeletedNodesInternalServerError {
+	return &GetDeletedNodesInternalServerError{}
+}
+
+/*GetDeletedNodesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetDeletedNodesInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetDeletedNodesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/trash][%d] getDeletedNodesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeletedNodesInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetDeletedNodesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

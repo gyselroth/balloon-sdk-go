@@ -30,6 +30,12 @@ func (o *GetV2Reader) ReadResponse(response runtime.ClientResponse, consumer run
 			return nil, err
 		}
 		return result, nil
+	case 500:
+		result := NewGetV2InternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -60,6 +66,39 @@ func (o *GetV2OK) GetPayload() *models.CoreV2APIRoot {
 func (o *GetV2OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoreV2APIRoot)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetV2InternalServerError creates a GetV2InternalServerError with default headers values
+func NewGetV2InternalServerError() *GetV2InternalServerError {
+	return &GetV2InternalServerError{}
+}
+
+/*GetV2InternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetV2InternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetV2InternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2][%d] getV2InternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetV2InternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetV2InternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

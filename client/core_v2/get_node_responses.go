@@ -30,6 +30,18 @@ func (o *GetNodeReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetNodeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetNodeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetNodeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetNodeReader) ReadResponse(response runtime.ClientResponse, consumer r
 		return nil, result
 	case 404:
 		result := NewGetNodeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetNodeUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetNodeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetNodeOK) readResponse(response runtime.ClientResponse, consumer runti
 	return nil
 }
 
+// NewGetNodeBadRequest creates a GetNodeBadRequest with default headers values
+func NewGetNodeBadRequest() *GetNodeBadRequest {
+	return &GetNodeBadRequest{}
+}
+
+/*GetNodeBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetNodeBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetNodeBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeUnauthorized creates a GetNodeUnauthorized with default headers values
+func NewGetNodeUnauthorized() *GetNodeUnauthorized {
+	return &GetNodeUnauthorized{}
+}
+
+/*GetNodeUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetNodeUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetNodeUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetNodeForbidden creates a GetNodeForbidden with default headers values
 func NewGetNodeForbidden() *GetNodeForbidden {
 	return &GetNodeForbidden{}
@@ -88,16 +178,28 @@ func NewGetNodeForbidden() *GetNodeForbidden {
 
 /*GetNodeForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetNodeForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNodeForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetNodeForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetNodeNotFound() *GetNodeNotFound {
 
 /*GetNodeNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetNodeNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetNodeNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetNodeNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeUnprocessableEntity creates a GetNodeUnprocessableEntity with default headers values
+func NewGetNodeUnprocessableEntity() *GetNodeUnprocessableEntity {
+	return &GetNodeUnprocessableEntity{}
+}
+
+/*GetNodeUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetNodeUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetNodeUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetNodeInternalServerError creates a GetNodeInternalServerError with default headers values
+func NewGetNodeInternalServerError() *GetNodeInternalServerError {
+	return &GetNodeInternalServerError{}
+}
+
+/*GetNodeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetNodeInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetNodeInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/nodes/{node}][%d] getNodeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetNodeInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -7,10 +7,13 @@ package notification_v2
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/gyselroth/balloon-sdk-go/models"
 )
 
 // SendMailReader is a Reader for the SendMail structure.
@@ -27,8 +30,38 @@ func (o *SendMailReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewSendMailBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewSendMailUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewSendMailForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewSendMailNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewSendMailUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewSendMailInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -60,6 +93,72 @@ func (o *SendMailAccepted) readResponse(response runtime.ClientResponse, consume
 	return nil
 }
 
+// NewSendMailBadRequest creates a SendMailBadRequest with default headers values
+func NewSendMailBadRequest() *SendMailBadRequest {
+	return &SendMailBadRequest{}
+}
+
+/*SendMailBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type SendMailBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SendMailBadRequest) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendMailBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SendMailBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMailUnauthorized creates a SendMailUnauthorized with default headers values
+func NewSendMailUnauthorized() *SendMailUnauthorized {
+	return &SendMailUnauthorized{}
+}
+
+/*SendMailUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendMailUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SendMailUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendMailUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SendMailUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewSendMailForbidden creates a SendMailForbidden with default headers values
 func NewSendMailForbidden() *SendMailForbidden {
 	return &SendMailForbidden{}
@@ -67,16 +166,127 @@ func NewSendMailForbidden() *SendMailForbidden {
 
 /*SendMailForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type SendMailForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *SendMailForbidden) Error() string {
-	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailForbidden ", 403)
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendMailForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *SendMailForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMailNotFound creates a SendMailNotFound with default headers values
+func NewSendMailNotFound() *SendMailNotFound {
+	return &SendMailNotFound{}
+}
+
+/*SendMailNotFound handles this case with default header values.
+
+The specified resource was not found
+*/
+type SendMailNotFound struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SendMailNotFound) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendMailNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SendMailNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMailUnprocessableEntity creates a SendMailUnprocessableEntity with default headers values
+func NewSendMailUnprocessableEntity() *SendMailUnprocessableEntity {
+	return &SendMailUnprocessableEntity{}
+}
+
+/*SendMailUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type SendMailUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SendMailUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *SendMailUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SendMailUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMailInternalServerError creates a SendMailInternalServerError with default headers values
+func NewSendMailInternalServerError() *SendMailInternalServerError {
+	return &SendMailInternalServerError{}
+}
+
+/*SendMailInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type SendMailInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *SendMailInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /api/v2/notifications/mail][%d] sendMailInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendMailInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *SendMailInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

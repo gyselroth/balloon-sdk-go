@@ -30,6 +30,18 @@ func (o *GetSlaveReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetSlaveBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetSlaveUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetSlaveForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -38,6 +50,18 @@ func (o *GetSlaveReader) ReadResponse(response runtime.ClientResponse, consumer 
 		return nil, result
 	case 404:
 		result := NewGetSlaveNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 422:
+		result := NewGetSlaveUnprocessableEntity()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetSlaveInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -81,6 +105,72 @@ func (o *GetSlaveOK) readResponse(response runtime.ClientResponse, consumer runt
 	return nil
 }
 
+// NewGetSlaveBadRequest creates a GetSlaveBadRequest with default headers values
+func NewGetSlaveBadRequest() *GetSlaveBadRequest {
+	return &GetSlaveBadRequest{}
+}
+
+/*GetSlaveBadRequest handles this case with default header values.
+
+Bad Reqeust
+*/
+type GetSlaveBadRequest struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetSlaveBadRequest) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetSlaveBadRequest) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetSlaveBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSlaveUnauthorized creates a GetSlaveUnauthorized with default headers values
+func NewGetSlaveUnauthorized() *GetSlaveUnauthorized {
+	return &GetSlaveUnauthorized{}
+}
+
+/*GetSlaveUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetSlaveUnauthorized struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetSlaveUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSlaveUnauthorized) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetSlaveUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetSlaveForbidden creates a GetSlaveForbidden with default headers values
 func NewGetSlaveForbidden() *GetSlaveForbidden {
 	return &GetSlaveForbidden{}
@@ -88,16 +178,28 @@ func NewGetSlaveForbidden() *GetSlaveForbidden {
 
 /*GetSlaveForbidden handles this case with default header values.
 
-Access denied
+Forbidden
 */
 type GetSlaveForbidden struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetSlaveForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveForbidden ", 403)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetSlaveForbidden) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetSlaveForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
@@ -109,16 +211,94 @@ func NewGetSlaveNotFound() *GetSlaveNotFound {
 
 /*GetSlaveNotFound handles this case with default header values.
 
-Resource does not exists
+The specified resource was not found
 */
 type GetSlaveNotFound struct {
+	Payload *models.CoreV2Error
 }
 
 func (o *GetSlaveNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveNotFound ", 404)
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSlaveNotFound) GetPayload() *models.CoreV2Error {
+	return o.Payload
 }
 
 func (o *GetSlaveNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSlaveUnprocessableEntity creates a GetSlaveUnprocessableEntity with default headers values
+func NewGetSlaveUnprocessableEntity() *GetSlaveUnprocessableEntity {
+	return &GetSlaveUnprocessableEntity{}
+}
+
+/*GetSlaveUnprocessableEntity handles this case with default header values.
+
+Unauthorized
+*/
+type GetSlaveUnprocessableEntity struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetSlaveUnprocessableEntity) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveUnprocessableEntity  %+v", 422, o.Payload)
+}
+
+func (o *GetSlaveUnprocessableEntity) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetSlaveUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSlaveInternalServerError creates a GetSlaveInternalServerError with default headers values
+func NewGetSlaveInternalServerError() *GetSlaveInternalServerError {
+	return &GetSlaveInternalServerError{}
+}
+
+/*GetSlaveInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetSlaveInternalServerError struct {
+	Payload *models.CoreV2Error
+}
+
+func (o *GetSlaveInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /api/v2/files/{file}/convert/slaves/{slave}][%d] getSlaveInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetSlaveInternalServerError) GetPayload() *models.CoreV2Error {
+	return o.Payload
+}
+
+func (o *GetSlaveInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.CoreV2Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }
