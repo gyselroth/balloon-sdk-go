@@ -19,7 +19,7 @@ type CoreV2OAuth2Token struct {
 	AccessToken string `json:"access_token,omitempty"`
 
 	// The number of seconds the issues acceess_token is valid for. This is usually 1hour.
-	ExpiresIn *float64 `json:"expires_in,omitempty"`
+	ExpiresIn *int64 `json:"expires_in,omitempty"`
 
 	// An optional refresh token to get new access_tokens via the refresh_token grant type.
 	RefreshToken string `json:"refresh_token,omitempty"`

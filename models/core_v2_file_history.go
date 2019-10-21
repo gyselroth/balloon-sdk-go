@@ -22,13 +22,13 @@ type CoreV2FileHistory struct {
 	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// Type of change.
-	Type float64 `json:"type,omitempty"`
+	Type int64 `json:"type,omitempty"`
 
 	// user
 	User *CoreV2FileHistoryUser `json:"user,omitempty"`
 
 	// The version number.
-	Version *float64 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // Validate validates this core v2 file history

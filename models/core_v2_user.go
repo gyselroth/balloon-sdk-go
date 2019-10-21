@@ -28,14 +28,14 @@ type CoreV2User struct {
 	Auth *string `json:"auth,omitempty"`
 
 	// Available storage in bytes. Is -1 if there is no hard_quota.
-	Available *float64 `json:"available,omitempty"`
+	Available *int64 `json:"available,omitempty"`
 
 	// ISO 8601 timestamp when the resource was changed.
 	// Format: date-time
 	Changed strfmt.DateTime `json:"changed,omitempty"`
 
 	// Hard quota in bytes (Max. limit of storage usage). Note that external storage is not part of the quota. The default is no limit.
-	HardQuota *float64 `json:"hard_quota,omitempty"`
+	HardQuota *int64 `json:"hard_quota,omitempty"`
 
 	// Is true if the user has a local password set.
 	HasPassword *bool `json:"has_password,omitempty"`
@@ -50,10 +50,10 @@ type CoreV2User struct {
 	Namespace string `json:"namespace,omitempty"`
 
 	// Soft quota in bytes (Warning of high quota usage). The default is no limit.
-	SoftQuota *float64 `json:"soft_quota,omitempty"`
+	SoftQuota *int64 `json:"soft_quota,omitempty"`
 
 	// Used storage in bytes.
-	Used float64 `json:"used,omitempty"`
+	Used int64 `json:"used,omitempty"`
 
 	// Unique username.
 	Username string `json:"username,omitempty"`
@@ -74,11 +74,11 @@ func (m *CoreV2User) UnmarshalJSON(raw []byte) error {
 
 		Auth *string `json:"auth,omitempty"`
 
-		Available *float64 `json:"available,omitempty"`
+		Available *int64 `json:"available,omitempty"`
 
 		Changed strfmt.DateTime `json:"changed,omitempty"`
 
-		HardQuota *float64 `json:"hard_quota,omitempty"`
+		HardQuota *int64 `json:"hard_quota,omitempty"`
 
 		HasPassword *bool `json:"has_password,omitempty"`
 
@@ -88,9 +88,9 @@ func (m *CoreV2User) UnmarshalJSON(raw []byte) error {
 
 		Namespace string `json:"namespace,omitempty"`
 
-		SoftQuota *float64 `json:"soft_quota,omitempty"`
+		SoftQuota *int64 `json:"soft_quota,omitempty"`
 
-		Used float64 `json:"used,omitempty"`
+		Used int64 `json:"used,omitempty"`
 
 		Username string `json:"username,omitempty"`
 	}
@@ -140,11 +140,11 @@ func (m CoreV2User) MarshalJSON() ([]byte, error) {
 
 		Auth *string `json:"auth,omitempty"`
 
-		Available *float64 `json:"available,omitempty"`
+		Available *int64 `json:"available,omitempty"`
 
 		Changed strfmt.DateTime `json:"changed,omitempty"`
 
-		HardQuota *float64 `json:"hard_quota,omitempty"`
+		HardQuota *int64 `json:"hard_quota,omitempty"`
 
 		HasPassword *bool `json:"has_password,omitempty"`
 
@@ -154,9 +154,9 @@ func (m CoreV2User) MarshalJSON() ([]byte, error) {
 
 		Namespace string `json:"namespace,omitempty"`
 
-		SoftQuota *float64 `json:"soft_quota,omitempty"`
+		SoftQuota *int64 `json:"soft_quota,omitempty"`
 
-		Used float64 `json:"used,omitempty"`
+		Used int64 `json:"used,omitempty"`
 
 		Username string `json:"username,omitempty"`
 	}

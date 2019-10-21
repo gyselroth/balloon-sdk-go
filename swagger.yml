@@ -132,12 +132,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -384,12 +384,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -617,12 +617,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -771,12 +771,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -818,7 +818,7 @@ paths:
         - name: deleted
           in: query
           required: false
-          type: number
+          type: integer
           description: 'Wherever include deleted nodes or not, possible values:  0 Exclude deleted 1 Only deleted 2 Include deleted.'
       responses:
         200:
@@ -866,12 +866,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -1454,7 +1454,7 @@ paths:
           in: query
           required: false
           description: 'Conflict resolution'
-          type: number
+          type: integer
           default: 0
           enum:
           - 0
@@ -1502,7 +1502,7 @@ paths:
           in: query
           required: false
           description: 'Conflict resolution'
-          type: number
+          type: integer
           default: 0
           enum:
           - 0
@@ -1558,7 +1558,7 @@ paths:
           in: query
           required: false
           description: 'Conflict resolution'
-          type: number
+          type: integer
           default: 0
           enum:
           - 0
@@ -1695,7 +1695,7 @@ paths:
           name: deleted
           description: Wheter to include deleted or not
           required: false
-          type: number
+          type: integer
           enum:
           - 0
           - 1
@@ -1713,12 +1713,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -1769,7 +1769,7 @@ paths:
           name: deleted
           description: Wheter to include deleted or not
           required: false
-          type: number
+          type: integer
           enum:
           - 0
           - 1
@@ -1787,12 +1787,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -1843,7 +1843,7 @@ paths:
           name: deleted
           description: Wheter to include deleted or not
           required: false
-          type: number
+          type: integer
           enum:
           - 0
           - 1
@@ -1861,12 +1861,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -1973,7 +1973,7 @@ paths:
           name: deleted
           description: Wheter to include deleted or not
           required: false
-          type: number
+          type: integer
           enum:
           - 0
           - 1
@@ -1991,12 +1991,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -2173,7 +2173,7 @@ paths:
           name: deleted
           description: Wheter to include deleted or not
           required: false
-          type: number
+          type: integer
           enum:
           - 0
           - 1
@@ -2191,12 +2191,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -2246,7 +2246,7 @@ paths:
         - name: at
           in: query
           required: false
-          type: number
+          type: integer
           description: 'Has to be a valid unix timestamp if so the node will destroy itself at this specified time instead immediatly'
       responses:
         204:
@@ -2383,7 +2383,7 @@ paths:
         - name: expiration
           in: query
           required: false
-          type: number
+          type: integer
           description: 'Expire timestamp as unix timestap. Tells the server when the public link should expire automatically. The default is to never expire.'
           default: 0
         - name: password
@@ -2438,7 +2438,7 @@ paths:
         - name: Byte-Ranges
           in: header
           required: false
-          type: number
+          type: integer
           description: 'Read stream from a specific offset/limit in bytes '
         - name: encode
           in: query
@@ -2482,7 +2482,7 @@ paths:
         - name: limit
           in: query
           required: false
-          type: number
+          type: integer
           description: 'Limit the number of delta entries, if too low you have to call this endpoint more often since has_more would be true more often '
         - name: attributes
           in: query
@@ -2542,12 +2542,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -2606,12 +2606,12 @@ paths:
             negative offset which will return results from the end [total -
             offset].
           required: false
-          type: number
+          type: integer
         - in: query
           name: limit
           description: Objects limit, per default 20 objects will get returned
           required: false
-          type: number
+          type: integer
         - in: query
           name: sort
           description: 'Specify a MongoDB sort operation
@@ -2757,7 +2757,7 @@ definitions:
     type: object
     properties:
       code:
-        type: number
+        type: integer
       message:
         type: string
       error:
@@ -2779,7 +2779,7 @@ definitions:
       name:
         type: string
       api:
-        type: number
+        type: integer
   core.v2.Links:
     description: "Contains resource links (URL) to other resources."
     type: "object"
@@ -2812,10 +2812,10 @@ definitions:
         default: "List"
       count:
         description: "Holds the number of items in the current list response."
-        type: "number"
+        type: integer
       total:
         description: "Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list."
-        type: "number"
+        type: integer
   core.v2.Resource:
     type: "object"
     properties:
@@ -2840,7 +2840,7 @@ definitions:
         type: string
       expires_in:
         description: The number of seconds the issues acceess_token is valid for. This is usually 1hour.
-        type: number
+        type: integer
         default: 3600
       token_type:
         description: The type of token. This is usually a Bearer token.
@@ -2903,19 +2903,19 @@ definitions:
             default: false
           hard_quota:
             description: "Hard quota in bytes (Max. limit of storage usage). Note that external storage is not part of the quota. The default is no limit."
-            type: "number"
+            type: integer
             default: -1
           soft_quota:
             description: "Soft quota in bytes (Warning of high quota usage). The default is no limit."
-            type: "number"
+            type: integer
             default: -1
           available:
             description: "Available storage in bytes. Is -1 if there is no hard_quota."
-            type: "number"
+            type: integer
             default: -1
           used:
             description: "Used storage in bytes."
-            type: "number"
+            type: integer
             default: 0
   core.v2.Groups:
     description: "A list of groups."
@@ -3008,7 +3008,7 @@ definitions:
             $ref: '#/definitions/core.v2.NodeMeta'
           size:
             description: "The size in bytes. If the node is of type collection the size is the number of child nodes."
-            type: "number"
+            type: integer
             default: 0
           path:
             description: "The path abstraction of the node."
@@ -3096,7 +3096,7 @@ definitions:
         properties:
           version:
             description: "The content version. Does increase if the content gets changed."
-            type: "number"
+            type: integer
             default: 1
           hash:
             description: "MD5 content checksum."
@@ -3110,7 +3110,7 @@ definitions:
     properties:
       version:
         description: "The version number."
-        type: "number"
+        type: integer
         default: 1
       changed:
         description: "ISO 8601 timestamp when the resource was changed."
@@ -3118,7 +3118,7 @@ definitions:
         format: date-time
       type:
         description: "Type of change."
-        type: "number"
+        type: integer
       user:
         description: "Resolves to user who executed the operation."
         type: "object"
@@ -3203,7 +3203,7 @@ definitions:
           _id:
             type: string
           sum:
-            type: number
+            type: integer
   core.v2.ChunkSession:
     description: "Chunking upload session."
     type: object
@@ -3213,7 +3213,7 @@ definitions:
         type: string
       chunks_left:
         description: "Tells how many chunks are left to upload."
-        type: number
+        type: integer
   core.v2.EventLogs:
     description: "A list of events."
     allOf:

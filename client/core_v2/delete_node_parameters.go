@@ -66,7 +66,7 @@ type DeleteNodeParams struct {
 	  Has to be a valid unix timestamp if so the node will destroy itself at this specified time instead immediatly
 
 	*/
-	At *float64
+	At *int64
 	/*Force
 	  Force flag need to be set to delete a node from trash (node must have the deleted flag)
 
@@ -122,13 +122,13 @@ func (o *DeleteNodeParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithAt adds the at to the delete node params
-func (o *DeleteNodeParams) WithAt(at *float64) *DeleteNodeParams {
+func (o *DeleteNodeParams) WithAt(at *int64) *DeleteNodeParams {
 	o.SetAt(at)
 	return o
 }
 
 // SetAt adds the at to the delete node params
-func (o *DeleteNodeParams) SetAt(at *float64) {
+func (o *DeleteNodeParams) SetAt(at *int64) {
 	o.At = at
 }
 
@@ -176,11 +176,11 @@ func (o *DeleteNodeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	if o.At != nil {
 
 		// query param at
-		var qrAt float64
+		var qrAt int64
 		if o.At != nil {
 			qrAt = *o.At
 		}
-		qAt := swag.FormatFloat64(qrAt)
+		qAt := swag.FormatInt64(qrAt)
 		if qAt != "" {
 			if err := r.SetQueryParam("at", qAt); err != nil {
 				return err

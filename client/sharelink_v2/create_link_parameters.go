@@ -22,7 +22,7 @@ import (
 // with the default values initialized.
 func NewCreateLinkParams() *CreateLinkParams {
 	var (
-		expirationDefault = float64(0)
+		expirationDefault = int64(0)
 	)
 	return &CreateLinkParams{
 		Expiration: &expirationDefault,
@@ -35,7 +35,7 @@ func NewCreateLinkParams() *CreateLinkParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewCreateLinkParamsWithTimeout(timeout time.Duration) *CreateLinkParams {
 	var (
-		expirationDefault = float64(0)
+		expirationDefault = int64(0)
 	)
 	return &CreateLinkParams{
 		Expiration: &expirationDefault,
@@ -48,7 +48,7 @@ func NewCreateLinkParamsWithTimeout(timeout time.Duration) *CreateLinkParams {
 // with the default values initialized, and the ability to set a context for a request
 func NewCreateLinkParamsWithContext(ctx context.Context) *CreateLinkParams {
 	var (
-		expirationDefault = float64(0)
+		expirationDefault = int64(0)
 	)
 	return &CreateLinkParams{
 		Expiration: &expirationDefault,
@@ -61,7 +61,7 @@ func NewCreateLinkParamsWithContext(ctx context.Context) *CreateLinkParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateLinkParamsWithHTTPClient(client *http.Client) *CreateLinkParams {
 	var (
-		expirationDefault = float64(0)
+		expirationDefault = int64(0)
 	)
 	return &CreateLinkParams{
 		Expiration: &expirationDefault,
@@ -78,7 +78,7 @@ type CreateLinkParams struct {
 	  Expire timestamp as unix timestap. Tells the server when the public link should expire automatically. The default is to never expire.
 
 	*/
-	Expiration *float64
+	Expiration *int64
 	/*Node
 	  Node identifier
 
@@ -129,13 +129,13 @@ func (o *CreateLinkParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithExpiration adds the expiration to the create link params
-func (o *CreateLinkParams) WithExpiration(expiration *float64) *CreateLinkParams {
+func (o *CreateLinkParams) WithExpiration(expiration *int64) *CreateLinkParams {
 	o.SetExpiration(expiration)
 	return o
 }
 
 // SetExpiration adds the expiration to the create link params
-func (o *CreateLinkParams) SetExpiration(expiration *float64) {
+func (o *CreateLinkParams) SetExpiration(expiration *int64) {
 	o.Expiration = expiration
 }
 
@@ -172,11 +172,11 @@ func (o *CreateLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	if o.Expiration != nil {
 
 		// query param expiration
-		var qrExpiration float64
+		var qrExpiration int64
 		if o.Expiration != nil {
 			qrExpiration = *o.Expiration
 		}
-		qExpiration := swag.FormatFloat64(qrExpiration)
+		qExpiration := swag.FormatInt64(qrExpiration)
 		if qExpiration != "" {
 			if err := r.SetQueryParam("expiration", qExpiration); err != nil {
 				return err

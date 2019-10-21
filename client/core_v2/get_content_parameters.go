@@ -78,7 +78,7 @@ type GetContentParams struct {
 	  Read stream from a specific offset/limit in bytes
 
 	*/
-	ByteRanges *float64
+	ByteRanges *int64
 	/*Download
 	  Force download file (Content-Disposition: attachment HTTP header)
 
@@ -134,13 +134,13 @@ func (o *GetContentParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithByteRanges adds the byteRanges to the get content params
-func (o *GetContentParams) WithByteRanges(byteRanges *float64) *GetContentParams {
+func (o *GetContentParams) WithByteRanges(byteRanges *int64) *GetContentParams {
 	o.SetByteRanges(byteRanges)
 	return o
 }
 
 // SetByteRanges adds the byteRanges to the get content params
-func (o *GetContentParams) SetByteRanges(byteRanges *float64) {
+func (o *GetContentParams) SetByteRanges(byteRanges *int64) {
 	o.ByteRanges = byteRanges
 }
 
@@ -188,7 +188,7 @@ func (o *GetContentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	if o.ByteRanges != nil {
 
 		// header param Byte-Ranges
-		if err := r.SetHeaderParam("Byte-Ranges", swag.FormatFloat64(*o.ByteRanges)); err != nil {
+		if err := r.SetHeaderParam("Byte-Ranges", swag.FormatInt64(*o.ByteRanges)); err != nil {
 			return err
 		}
 

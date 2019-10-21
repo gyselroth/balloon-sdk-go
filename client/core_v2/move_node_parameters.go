@@ -22,7 +22,7 @@ import (
 // with the default values initialized.
 func NewMoveNodeParams() *MoveNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &MoveNodeParams{
 		Conflict: &conflictDefault,
@@ -35,7 +35,7 @@ func NewMoveNodeParams() *MoveNodeParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewMoveNodeParamsWithTimeout(timeout time.Duration) *MoveNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &MoveNodeParams{
 		Conflict: &conflictDefault,
@@ -48,7 +48,7 @@ func NewMoveNodeParamsWithTimeout(timeout time.Duration) *MoveNodeParams {
 // with the default values initialized, and the ability to set a context for a request
 func NewMoveNodeParamsWithContext(ctx context.Context) *MoveNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &MoveNodeParams{
 		Conflict: &conflictDefault,
@@ -61,7 +61,7 @@ func NewMoveNodeParamsWithContext(ctx context.Context) *MoveNodeParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewMoveNodeParamsWithHTTPClient(client *http.Client) *MoveNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &MoveNodeParams{
 		Conflict:   &conflictDefault,
@@ -78,7 +78,7 @@ type MoveNodeParams struct {
 	  Conflict resolution
 
 	*/
-	Conflict *float64
+	Conflict *int64
 	/*Destid
 	  Destination collection, if this is null root is taken
 
@@ -129,13 +129,13 @@ func (o *MoveNodeParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithConflict adds the conflict to the move node params
-func (o *MoveNodeParams) WithConflict(conflict *float64) *MoveNodeParams {
+func (o *MoveNodeParams) WithConflict(conflict *int64) *MoveNodeParams {
 	o.SetConflict(conflict)
 	return o
 }
 
 // SetConflict adds the conflict to the move node params
-func (o *MoveNodeParams) SetConflict(conflict *float64) {
+func (o *MoveNodeParams) SetConflict(conflict *int64) {
 	o.Conflict = conflict
 }
 
@@ -172,11 +172,11 @@ func (o *MoveNodeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	if o.Conflict != nil {
 
 		// query param conflict
-		var qrConflict float64
+		var qrConflict int64
 		if o.Conflict != nil {
 			qrConflict = *o.Conflict
 		}
-		qConflict := swag.FormatFloat64(qrConflict)
+		qConflict := swag.FormatInt64(qrConflict)
 		if qConflict != "" {
 			if err := r.SetQueryParam("conflict", qConflict); err != nil {
 				return err

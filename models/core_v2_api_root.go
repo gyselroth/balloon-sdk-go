@@ -16,7 +16,7 @@ import (
 type CoreV2APIRoot struct {
 
 	// api
-	API float64 `json:"api,omitempty"`
+	API int64 `json:"api,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`

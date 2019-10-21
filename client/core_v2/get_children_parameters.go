@@ -88,17 +88,17 @@ type GetChildrenParams struct {
 	  Wheter to include deleted or not
 
 	*/
-	Deleted *float64
+	Deleted *int64
 	/*Limit
 	  Objects limit, per default 20 objects will get returned
 
 	*/
-	Limit *float64
+	Limit *int64
 	/*Offset
 	  Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
 
 	*/
-	Offset *float64
+	Offset *int64
 	/*Query
 	  Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {"name": {$regex: 'foo.*'}}).
 
@@ -176,35 +176,35 @@ func (o *GetChildrenParams) SetCollection(collection string) {
 }
 
 // WithDeleted adds the deleted to the get children params
-func (o *GetChildrenParams) WithDeleted(deleted *float64) *GetChildrenParams {
+func (o *GetChildrenParams) WithDeleted(deleted *int64) *GetChildrenParams {
 	o.SetDeleted(deleted)
 	return o
 }
 
 // SetDeleted adds the deleted to the get children params
-func (o *GetChildrenParams) SetDeleted(deleted *float64) {
+func (o *GetChildrenParams) SetDeleted(deleted *int64) {
 	o.Deleted = deleted
 }
 
 // WithLimit adds the limit to the get children params
-func (o *GetChildrenParams) WithLimit(limit *float64) *GetChildrenParams {
+func (o *GetChildrenParams) WithLimit(limit *int64) *GetChildrenParams {
 	o.SetLimit(limit)
 	return o
 }
 
 // SetLimit adds the limit to the get children params
-func (o *GetChildrenParams) SetLimit(limit *float64) {
+func (o *GetChildrenParams) SetLimit(limit *int64) {
 	o.Limit = limit
 }
 
 // WithOffset adds the offset to the get children params
-func (o *GetChildrenParams) WithOffset(offset *float64) *GetChildrenParams {
+func (o *GetChildrenParams) WithOffset(offset *int64) *GetChildrenParams {
 	o.SetOffset(offset)
 	return o
 }
 
 // SetOffset adds the offset to the get children params
-func (o *GetChildrenParams) SetOffset(offset *float64) {
+func (o *GetChildrenParams) SetOffset(offset *int64) {
 	o.Offset = offset
 }
 
@@ -265,11 +265,11 @@ func (o *GetChildrenParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if o.Deleted != nil {
 
 		// query param deleted
-		var qrDeleted float64
+		var qrDeleted int64
 		if o.Deleted != nil {
 			qrDeleted = *o.Deleted
 		}
-		qDeleted := swag.FormatFloat64(qrDeleted)
+		qDeleted := swag.FormatInt64(qrDeleted)
 		if qDeleted != "" {
 			if err := r.SetQueryParam("deleted", qDeleted); err != nil {
 				return err
@@ -281,11 +281,11 @@ func (o *GetChildrenParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if o.Limit != nil {
 
 		// query param limit
-		var qrLimit float64
+		var qrLimit int64
 		if o.Limit != nil {
 			qrLimit = *o.Limit
 		}
-		qLimit := swag.FormatFloat64(qrLimit)
+		qLimit := swag.FormatInt64(qrLimit)
 		if qLimit != "" {
 			if err := r.SetQueryParam("limit", qLimit); err != nil {
 				return err
@@ -297,11 +297,11 @@ func (o *GetChildrenParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	if o.Offset != nil {
 
 		// query param offset
-		var qrOffset float64
+		var qrOffset int64
 		if o.Offset != nil {
 			qrOffset = *o.Offset
 		}
-		qOffset := swag.FormatFloat64(qrOffset)
+		qOffset := swag.FormatInt64(qrOffset)
 		if qOffset != "" {
 			if err := r.SetQueryParam("offset", qOffset); err != nil {
 				return err

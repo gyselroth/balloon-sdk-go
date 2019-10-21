@@ -63,7 +63,7 @@ type CoreV2Node struct {
 	Shareowner *CoreV2NodeAO1Shareowner `json:"shareowner,omitempty"`
 
 	// The size in bytes. If the node is of type collection the size is the number of child nodes.
-	Size float64 `json:"size,omitempty"`
+	Size int64 `json:"size,omitempty"`
 
 	// Is true if the user has an active subscription on this node.
 	Subscription *bool `json:"subscription,omitempty"`
@@ -109,7 +109,7 @@ func (m *CoreV2Node) UnmarshalJSON(raw []byte) error {
 
 		Shareowner *CoreV2NodeAO1Shareowner `json:"shareowner,omitempty"`
 
-		Size float64 `json:"size,omitempty"`
+		Size int64 `json:"size,omitempty"`
 
 		Subscription *bool `json:"subscription,omitempty"`
 
@@ -191,7 +191,7 @@ func (m CoreV2Node) MarshalJSON() ([]byte, error) {
 
 		Shareowner *CoreV2NodeAO1Shareowner `json:"shareowner,omitempty"`
 
-		Size float64 `json:"size,omitempty"`
+		Size int64 `json:"size,omitempty"`
 
 		Subscription *bool `json:"subscription,omitempty"`
 

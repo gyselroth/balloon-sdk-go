@@ -24,7 +24,7 @@ type CoreV2File struct {
 	Preview bool `json:"preview,omitempty"`
 
 	// The content version. Does increase if the content gets changed.
-	Version *float64 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -42,7 +42,7 @@ func (m *CoreV2File) UnmarshalJSON(raw []byte) error {
 
 		Preview bool `json:"preview,omitempty"`
 
-		Version *float64 `json:"version,omitempty"`
+		Version *int64 `json:"version,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
@@ -72,7 +72,7 @@ func (m CoreV2File) MarshalJSON() ([]byte, error) {
 
 		Preview bool `json:"preview,omitempty"`
 
-		Version *float64 `json:"version,omitempty"`
+		Version *int64 `json:"version,omitempty"`
 	}
 
 	dataAO1.Hash = m.Hash

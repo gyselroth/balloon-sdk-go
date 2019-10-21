@@ -22,7 +22,7 @@ import (
 // with the default values initialized.
 func NewCloneNodeParams() *CloneNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &CloneNodeParams{
 		Conflict: &conflictDefault,
@@ -35,7 +35,7 @@ func NewCloneNodeParams() *CloneNodeParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewCloneNodeParamsWithTimeout(timeout time.Duration) *CloneNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &CloneNodeParams{
 		Conflict: &conflictDefault,
@@ -48,7 +48,7 @@ func NewCloneNodeParamsWithTimeout(timeout time.Duration) *CloneNodeParams {
 // with the default values initialized, and the ability to set a context for a request
 func NewCloneNodeParamsWithContext(ctx context.Context) *CloneNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &CloneNodeParams{
 		Conflict: &conflictDefault,
@@ -61,7 +61,7 @@ func NewCloneNodeParamsWithContext(ctx context.Context) *CloneNodeParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCloneNodeParamsWithHTTPClient(client *http.Client) *CloneNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 	)
 	return &CloneNodeParams{
 		Conflict:   &conflictDefault,
@@ -78,7 +78,7 @@ type CloneNodeParams struct {
 	  Conflict resolution
 
 	*/
-	Conflict *float64
+	Conflict *int64
 	/*Destid
 	  Destination collection, if this is null root is taken
 
@@ -129,13 +129,13 @@ func (o *CloneNodeParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithConflict adds the conflict to the clone node params
-func (o *CloneNodeParams) WithConflict(conflict *float64) *CloneNodeParams {
+func (o *CloneNodeParams) WithConflict(conflict *int64) *CloneNodeParams {
 	o.SetConflict(conflict)
 	return o
 }
 
 // SetConflict adds the conflict to the clone node params
-func (o *CloneNodeParams) SetConflict(conflict *float64) {
+func (o *CloneNodeParams) SetConflict(conflict *int64) {
 	o.Conflict = conflict
 }
 
@@ -172,11 +172,11 @@ func (o *CloneNodeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	if o.Conflict != nil {
 
 		// query param conflict
-		var qrConflict float64
+		var qrConflict int64
 		if o.Conflict != nil {
 			qrConflict = *o.Conflict
 		}
-		qConflict := swag.FormatFloat64(qrConflict)
+		qConflict := swag.FormatInt64(qrConflict)
 		if qConflict != "" {
 			if err := r.SetQueryParam("conflict", qConflict); err != nil {
 				return err

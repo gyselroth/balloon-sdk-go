@@ -76,7 +76,7 @@ type GetDeltaParams struct {
 	  Limit the number of delta entries, if too low you have to call this endpoint more often since has_more would be true more often
 
 	*/
-	Limit *float64
+	Limit *int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,13 +139,13 @@ func (o *GetDeltaParams) SetCursor(cursor *string) {
 }
 
 // WithLimit adds the limit to the get delta params
-func (o *GetDeltaParams) WithLimit(limit *float64) *GetDeltaParams {
+func (o *GetDeltaParams) WithLimit(limit *int64) *GetDeltaParams {
 	o.SetLimit(limit)
 	return o
 }
 
 // SetLimit adds the limit to the get delta params
-func (o *GetDeltaParams) SetLimit(limit *float64) {
+func (o *GetDeltaParams) SetLimit(limit *int64) {
 	o.Limit = limit
 }
 
@@ -184,11 +184,11 @@ func (o *GetDeltaParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	if o.Limit != nil {
 
 		// query param limit
-		var qrLimit float64
+		var qrLimit int64
 		if o.Limit != nil {
 			qrLimit = *o.Limit
 		}
-		qLimit := swag.FormatFloat64(qrLimit)
+		qLimit := swag.FormatInt64(qrLimit)
 		if qLimit != "" {
 			if err := r.SetQueryParam("limit", qLimit); err != nil {
 				return err

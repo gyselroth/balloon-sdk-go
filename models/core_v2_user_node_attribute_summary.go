@@ -56,7 +56,7 @@ type CoreV2UserNodeAttributeSummaryItems0 struct {
 	ID string `json:"_id,omitempty"`
 
 	// sum
-	Sum float64 `json:"sum,omitempty"`
+	Sum int64 `json:"sum,omitempty"`
 }
 
 // Validate validates this core v2 user node attribute summary items0

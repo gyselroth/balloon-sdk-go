@@ -22,7 +22,7 @@ import (
 // with the default values initialized.
 func NewUndeleteNodeParams() *UndeleteNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 		moveDefault     = bool(false)
 	)
 	return &UndeleteNodeParams{
@@ -37,7 +37,7 @@ func NewUndeleteNodeParams() *UndeleteNodeParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewUndeleteNodeParamsWithTimeout(timeout time.Duration) *UndeleteNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 		moveDefault     = bool(false)
 	)
 	return &UndeleteNodeParams{
@@ -52,7 +52,7 @@ func NewUndeleteNodeParamsWithTimeout(timeout time.Duration) *UndeleteNodeParams
 // with the default values initialized, and the ability to set a context for a request
 func NewUndeleteNodeParamsWithContext(ctx context.Context) *UndeleteNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 		moveDefault     = bool(false)
 	)
 	return &UndeleteNodeParams{
@@ -67,7 +67,7 @@ func NewUndeleteNodeParamsWithContext(ctx context.Context) *UndeleteNodeParams {
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewUndeleteNodeParamsWithHTTPClient(client *http.Client) *UndeleteNodeParams {
 	var (
-		conflictDefault = float64(0)
+		conflictDefault = int64(0)
 		moveDefault     = bool(false)
 	)
 	return &UndeleteNodeParams{
@@ -86,7 +86,7 @@ type UndeleteNodeParams struct {
 	  Conflict resolution
 
 	*/
-	Conflict *float64
+	Conflict *int64
 	/*Destid
 	  If node should also be moved during undelete
 
@@ -142,13 +142,13 @@ func (o *UndeleteNodeParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithConflict adds the conflict to the undelete node params
-func (o *UndeleteNodeParams) WithConflict(conflict *float64) *UndeleteNodeParams {
+func (o *UndeleteNodeParams) WithConflict(conflict *int64) *UndeleteNodeParams {
 	o.SetConflict(conflict)
 	return o
 }
 
 // SetConflict adds the conflict to the undelete node params
-func (o *UndeleteNodeParams) SetConflict(conflict *float64) {
+func (o *UndeleteNodeParams) SetConflict(conflict *int64) {
 	o.Conflict = conflict
 }
 
@@ -196,11 +196,11 @@ func (o *UndeleteNodeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if o.Conflict != nil {
 
 		// query param conflict
-		var qrConflict float64
+		var qrConflict int64
 		if o.Conflict != nil {
 			qrConflict = *o.Conflict
 		}
-		qConflict := swag.FormatFloat64(qrConflict)
+		qConflict := swag.FormatInt64(qrConflict)
 		if qConflict != "" {
 			if err := r.SetQueryParam("conflict", qConflict); err != nil {
 				return err

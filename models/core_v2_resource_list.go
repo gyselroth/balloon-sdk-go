@@ -20,13 +20,13 @@ type CoreV2ResourceList struct {
 	Links *CoreV2ListLinks `json:"_links,omitempty"`
 
 	// Holds the number of items in the current list response.
-	Count float64 `json:"count,omitempty"`
+	Count int64 `json:"count,omitempty"`
 
 	// The resource type, always List.
 	Kind *string `json:"kind,omitempty"`
 
 	// Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
-	Total float64 `json:"total,omitempty"`
+	Total int64 `json:"total,omitempty"`
 }
 
 // Validate validates this core v2 resource list

@@ -16,7 +16,7 @@ import (
 type CoreV2ChunkSession struct {
 
 	// Tells how many chunks are left to upload.
-	ChunksLeft float64 `json:"chunks_left,omitempty"`
+	ChunksLeft int64 `json:"chunks_left,omitempty"`
 
 	// The upload session id
 	Session string `json:"session,omitempty"`

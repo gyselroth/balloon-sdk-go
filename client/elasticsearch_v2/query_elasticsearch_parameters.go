@@ -66,7 +66,7 @@ type QueryElasticsearchParams struct {
 	  Wherever include deleted nodes or not, possible values:  0 Exclude deleted 1 Only deleted 2 Include deleted.
 
 	*/
-	Deleted *float64
+	Deleted *int64
 	/*Query
 	  Elasticsearch query as JSON
 
@@ -112,13 +112,13 @@ func (o *QueryElasticsearchParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithDeleted adds the deleted to the query elasticsearch params
-func (o *QueryElasticsearchParams) WithDeleted(deleted *float64) *QueryElasticsearchParams {
+func (o *QueryElasticsearchParams) WithDeleted(deleted *int64) *QueryElasticsearchParams {
 	o.SetDeleted(deleted)
 	return o
 }
 
 // SetDeleted adds the deleted to the query elasticsearch params
-func (o *QueryElasticsearchParams) SetDeleted(deleted *float64) {
+func (o *QueryElasticsearchParams) SetDeleted(deleted *int64) {
 	o.Deleted = deleted
 }
 
@@ -144,11 +144,11 @@ func (o *QueryElasticsearchParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if o.Deleted != nil {
 
 		// query param deleted
-		var qrDeleted float64
+		var qrDeleted int64
 		if o.Deleted != nil {
 			qrDeleted = *o.Deleted
 		}
-		qDeleted := swag.FormatFloat64(qrDeleted)
+		qDeleted := swag.FormatInt64(qrDeleted)
 		if qDeleted != "" {
 			if err := r.SetQueryParam("deleted", qDeleted); err != nil {
 				return err
