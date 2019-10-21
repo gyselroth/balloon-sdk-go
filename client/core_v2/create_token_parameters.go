@@ -20,7 +20,7 @@ import (
 // NewCreateTokenParams creates a new CreateTokenParams object
 // with the default values initialized.
 func NewCreateTokenParams() *CreateTokenParams {
-
+	var ()
 	return &CreateTokenParams{
 
 		timeout: cr.DefaultTimeout,
@@ -30,7 +30,7 @@ func NewCreateTokenParams() *CreateTokenParams {
 // NewCreateTokenParamsWithTimeout creates a new CreateTokenParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewCreateTokenParamsWithTimeout(timeout time.Duration) *CreateTokenParams {
-
+	var ()
 	return &CreateTokenParams{
 
 		timeout: timeout,
@@ -40,7 +40,7 @@ func NewCreateTokenParamsWithTimeout(timeout time.Duration) *CreateTokenParams {
 // NewCreateTokenParamsWithContext creates a new CreateTokenParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewCreateTokenParamsWithContext(ctx context.Context) *CreateTokenParams {
-
+	var ()
 	return &CreateTokenParams{
 
 		Context: ctx,
@@ -50,7 +50,7 @@ func NewCreateTokenParamsWithContext(ctx context.Context) *CreateTokenParams {
 // NewCreateTokenParamsWithHTTPClient creates a new CreateTokenParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewCreateTokenParamsWithHTTPClient(client *http.Client) *CreateTokenParams {
-
+	var ()
 	return &CreateTokenParams{
 		HTTPClient: client,
 	}
@@ -60,6 +60,33 @@ func NewCreateTokenParamsWithHTTPClient(client *http.Client) *CreateTokenParams 
 for the create token operation typically these are written to a http.Request
 */
 type CreateTokenParams struct {
+
+	/*Code
+	  Multi factor value. This is usually some kind of a code.
+
+	*/
+	Code *string
+	/*GrantType
+	  OAUTH2 grant_type
+
+	*/
+	GrantType string
+	/*Password
+	  Password
+
+	*/
+	Password *string
+	/*RefreshToken
+	  OAUTH2 refresh_token to retrieve a new access_token.
+
+	*/
+	RefreshToken *string
+	/*Username
+	  Username
+
+	*/
+	Username *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -98,6 +125,61 @@ func (o *CreateTokenParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCode adds the code to the create token params
+func (o *CreateTokenParams) WithCode(code *string) *CreateTokenParams {
+	o.SetCode(code)
+	return o
+}
+
+// SetCode adds the code to the create token params
+func (o *CreateTokenParams) SetCode(code *string) {
+	o.Code = code
+}
+
+// WithGrantType adds the grantType to the create token params
+func (o *CreateTokenParams) WithGrantType(grantType string) *CreateTokenParams {
+	o.SetGrantType(grantType)
+	return o
+}
+
+// SetGrantType adds the grantType to the create token params
+func (o *CreateTokenParams) SetGrantType(grantType string) {
+	o.GrantType = grantType
+}
+
+// WithPassword adds the password to the create token params
+func (o *CreateTokenParams) WithPassword(password *string) *CreateTokenParams {
+	o.SetPassword(password)
+	return o
+}
+
+// SetPassword adds the password to the create token params
+func (o *CreateTokenParams) SetPassword(password *string) {
+	o.Password = password
+}
+
+// WithRefreshToken adds the refreshToken to the create token params
+func (o *CreateTokenParams) WithRefreshToken(refreshToken *string) *CreateTokenParams {
+	o.SetRefreshToken(refreshToken)
+	return o
+}
+
+// SetRefreshToken adds the refreshToken to the create token params
+func (o *CreateTokenParams) SetRefreshToken(refreshToken *string) {
+	o.RefreshToken = refreshToken
+}
+
+// WithUsername adds the username to the create token params
+func (o *CreateTokenParams) WithUsername(username *string) *CreateTokenParams {
+	o.SetUsername(username)
+	return o
+}
+
+// SetUsername adds the username to the create token params
+func (o *CreateTokenParams) SetUsername(username *string) {
+	o.Username = username
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *CreateTokenParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -105,6 +187,79 @@ func (o *CreateTokenParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
+
+	if o.Code != nil {
+
+		// form param code
+		var frCode string
+		if o.Code != nil {
+			frCode = *o.Code
+		}
+		fCode := frCode
+		if fCode != "" {
+			if err := r.SetFormParam("code", fCode); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	// form param grant_type
+	frGrantType := o.GrantType
+	fGrantType := frGrantType
+	if fGrantType != "" {
+		if err := r.SetFormParam("grant_type", fGrantType); err != nil {
+			return err
+		}
+	}
+
+	if o.Password != nil {
+
+		// form param password
+		var frPassword string
+		if o.Password != nil {
+			frPassword = *o.Password
+		}
+		fPassword := frPassword
+		if fPassword != "" {
+			if err := r.SetFormParam("password", fPassword); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.RefreshToken != nil {
+
+		// form param refresh_token
+		var frRefreshToken string
+		if o.RefreshToken != nil {
+			frRefreshToken = *o.RefreshToken
+		}
+		fRefreshToken := frRefreshToken
+		if fRefreshToken != "" {
+			if err := r.SetFormParam("refresh_token", fRefreshToken); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Username != nil {
+
+		// form param username
+		var frUsername string
+		if o.Username != nil {
+			frUsername = *o.Username
+		}
+		fUsername := frUsername
+		if fUsername != "" {
+			if err := r.SetFormParam("username", fUsername); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
