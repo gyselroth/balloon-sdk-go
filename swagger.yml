@@ -83,7 +83,8 @@ paths:
           description: "OAUTH2 refresh_token to retrieve a new access_token."
           required: false
           type: string
-      security: []
+      security:
+      - BasicAuth: []
       responses:
         "200":
           description: Oauth2 token

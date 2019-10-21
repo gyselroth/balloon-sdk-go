@@ -206,7 +206,7 @@ func (a *Client) CreateRootCollection(params *CreateRootCollectionParams, authIn
 /*
 CreateToken os a u t h2 o ID c token endpoint
 */
-func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) {
+func (a *Client) CreateToken(params *CreateTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTokenParams()
@@ -221,6 +221,7 @@ func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) 
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateTokenReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
