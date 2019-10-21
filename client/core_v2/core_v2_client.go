@@ -206,7 +206,7 @@ func (a *Client) CreateRootCollection(params *CreateRootCollectionParams, authIn
 /*
 CreateToken os a u t h2 o ID c token endpoint
 */
-func (a *Client) CreateToken(params *CreateTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTokenOK, error) {
+func (a *Client) CreateToken(params *CreateTokenParams) (*CreateTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTokenParams()
@@ -221,7 +221,6 @@ func (a *Client) CreateToken(params *CreateTokenParams, authInfo runtime.ClientA
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateTokenReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -381,7 +380,7 @@ func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAut
 /*
 GetAPI gets server status
 */
-func (a *Client) GetAPI(params *GetAPIParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIOK, error) {
+func (a *Client) GetAPI(params *GetAPIParams) (*GetAPIOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAPIParams()
@@ -396,7 +395,6 @@ func (a *Client) GetAPI(params *GetAPIParams, authInfo runtime.ClientAuthInfoWri
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetAPIReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -1260,7 +1258,7 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
 /*
 GetV2 gets server status
 */
-func (a *Client) GetV2(params *GetV2Params, authInfo runtime.ClientAuthInfoWriter) (*GetV2OK, error) {
+func (a *Client) GetV2(params *GetV2Params) (*GetV2OK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetV2Params()
@@ -1275,7 +1273,6 @@ func (a *Client) GetV2(params *GetV2Params, authInfo runtime.ClientAuthInfoWrite
 		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetV2Reader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

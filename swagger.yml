@@ -17,6 +17,7 @@ paths:
         - core.v2
       summary: 'Get server status'
       operationId: getApi
+      security: []
       produces:
         - application/json
       responses:
@@ -32,6 +33,7 @@ paths:
         - core.v2
       summary: 'Get server status'
       operationId: getV2
+      security: []
       produces:
         - application/json
       responses:
@@ -47,6 +49,7 @@ paths:
         - core.v2
       summary: OAUTH2/OIDC token endpoint
       operationId: createToken
+      security: []
       responses:
         "200":
           description: Oauth2 token
